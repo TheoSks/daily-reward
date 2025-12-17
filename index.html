@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Game Reward UI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-gold: #ffcc00;
+            --primary-orange: #ff8800;
+            --deep-bg: #4a2c0f;
+            --btn-blue: #3388ff;
+            --btn-blue-shadow: #0055aa;
+            --bar-bg: #5a3e75; /* Violet foncé comme fond de barre */
+            --bar-fill: #4b69ff; /* Bleu électrique */
+            --text-stroke: 2px #000;
+        }
+
+        * {
+            box-sizing: border-box;
+            user-select: none; /* Empêche la sélection de texte comme dans une app */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            font-family: 'Titan One', cursive;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- CONTENEUR PRINCIPAL (LE MOBILE) --- */
+        .game-container {
+            width: 100%;
+            max-width: 420px; /* Largeur type mobile */
+            height: 95vh;
+            max-height: 900px;
+            background: linear-gradient(180deg, #ffae00 0%, #ff7b00 100%);
+            border-radius: 20px;
+            border: 8px solid #d48729;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            overflow: hidden;
+        }
+
+        /* Effet de colonnes sur les côtés */
+        .game-container::before, .game-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 15px;
+            background: linear-gradient(90deg, #e69d26, #b86e00, #e69d26);
+            z-index: 10;
+            border-right: 2px solid rgba(0,0,0,0.2);
+        }
+        .game-container::before { left: 0; }
+        .game-container::after { right: 0; border-left: 2px solid rgba(0,0,0,0.2); border-right: none; }
+
+        /* --- HEADER (Héros) --- */
+        .header {
+            flex: 0 0 35%;
+            background: radial-gradient(circle at center, #ffd700 0%, #ff8c00 70%);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding-bottom: 20px;
+            overflow: hidden;
+        }
+
+        /* Simulation de l'image des héros avec CSS/Icônes */
+        .hero-art {
+            position: absolute;
+            top: 20px;
+            font-size: 120px;
+            color: rgba(255, 255, 255, 0.4);
+            filter: drop-shadow(0 0 20px #ff0000);
+            z-index: 1;
+        }
+
+        /* Effet de rayon de lumière */
+        .sunburst {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-conic-gradient(from 0deg, rgba(255,255,255,0.1) 0deg 10deg, transparent 10deg 20deg);
+            animation: rotate 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .title {
+            position: relative;
+            z-index: 2;
+            color: white;
+            font-size: 20px;
+            text-align: center;
+            text-transform: uppercase;
+            text-shadow:
+                -2px -2px 0 #000,
+                2px -2px 0 #000,
+                -2px 2px 0 #000,
+                2px 2px 0 #000,
+                0 4px 5px rgba(0,0,0,0.5);
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        /* --- LISTE DES RÉCOMPENSES --- */
+        .reward-list {
+            flex: 1;
+            padding: 10px 30px; /* Padding pour éviter les colonnes */
+            overflow-y: auto;
+            background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, transparent 20%);
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            /* Masquer la scrollbar */
+            scrollbar-width: none;
+        }
+        .reward-list::-webkit-scrollbar { display: none; }
+
+        /* --- ITEM DE LISTE (La carte) --- */
+        .reward-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(180deg, #fff5e6 0%, #ffdbc2 100%);
+            border-radius: 12px;
+            padding: 8px;
+            border-bottom: 4px solid #dcb08b;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            position: relative;
+            height: 80px;
+            transition: transform 0.1s;
+        }
+
+        .reward-row:active {
+            transform: scale(0.98);
+        }
+
+        /* Partie Gauche : Progress Bar */
+        .progress-section {
+            width: 60%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .progress-pill {
+            width: 100%;
+            height: 40px;
+            background-color: #553a78; /* Fond violet sombre */
+            border-radius: 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            border: 2px solid #3e2859;
+            box-shadow: inset 0 3px 5px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+
+        /* Barre de remplissage bleue */
+        .fill-bar {
+            height: 100%;
+            width: 0%; /* JS va changer ça */
+            background: linear-gradient(180deg, #6aaaff 0%, #357abd 100%);
+            border-right: 2px solid #8ccaff;
+            transition: width 1s ease-out;
+        }
+
+        .crown-icon {
+            position: absolute;
+            left: -5px;
+            width: 40px;
+            height: 40px;
+            font-size: 24px;
+            color: #ffcc00;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5));
+            z-index: 2;
+            /* Stroke effect css trick */
+            text-shadow:
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
+        }
+
+        .progress-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            z-index: 3;
+            text-shadow:
+                -1.5px -1.5px 0 #000,
+                1.5px -1.5px 0 #000,
+                -1.5px 1.5px 0 #000,
+                1.5px 1.5px 0 #000;
+        }
+
+        /* Partie Droite : Récompense */
+        .reward-section {
+            width: 35%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Effet de lueur derrière l'objet */
+        .glow-bg {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, rgba(255,255,0,0.6) 0%, transparent 70%);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0% { transform: scale(1); opacity: 0.6; } 50% { transform: scale(1.2); opacity: 0.8; } 100% { transform: scale(1); opacity: 0.6; } }
+
+        .reward-img {
+            font-size: 32px;
+            z-index: 2;
+            color: #ffd700;
+            filter: drop-shadow(0 4px 2px rgba(0,0,0,0.3));
+             text-shadow:
+                -1px -1px 0 #4a2c0f,
+                1px 1px 0 #4a2c0f;
+        }
+
+        .amount-tag {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            color: white;
+            font-size: 16px;
+            text-shadow:
+                -2px -2px 0 #000,
+                2px 2px 0 #000;
+            z-index: 3;
+        }
+
+        .lock-icon {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        /* Flèche de connexion */
+        .connector-arrow {
+            text-align: center;
+            color: #e69d26;
+            font-size: 18px;
+            margin: -2px 0;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* --- FOOTER --- */
+        .footer {
+            padding: 20px;
+            background: linear-gradient(180deg, #d48729 0%, #b86e00 100%);
+            display: flex;
+            justify-content: center;
+            border-top: 2px solid #e69d26;
+            /* Motif zigzag en bas */
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 90% 100%, 80% 85%, 70% 100%, 60% 85%, 50% 100%, 40% 85%, 30% 100%, 20% 85%, 10% 100%, 0 85%);
+            height: 100px;
+            margin-bottom: -10px; /* Pour coller au bas */
+        }
+
+        .btn-close {
+            background: linear-gradient(180deg, #4da6ff 0%, #0073e6 100%);
+            border: none;
+            border-radius: 12px;
+            padding: 12px 40px;
+            color: white;
+            font-family: 'Titan One', cursive;
+            font-size: 20px;
+            text-transform: uppercase;
+            box-shadow: 0 6px 0 #004d99, 0 10px 10px rgba(0,0,0,0.3);
+            cursor: pointer;
+            text-shadow: 0 2px 0 rgba(0,0,0,0.3);
+            border: 2px solid #80c1ff;
+            transition: all 0.1s;
+        }
+
+        .btn-close:active {
+            transform: translateY(6px);
+            box-shadow: 0 0 0 #004d99, inset 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        /* Highlight special pour la dernière récompense */
+        .reward-row.grand-prize {
+            background: linear-gradient(180deg, #fff9c4 0%, #fbc02d 100%);
+            height: 100px;
+            border: 2px solid #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        <div class="header">
+            <div class="sunburst"></div>
+            <i class="fa-solid fa-chess-knight hero-art" style="left: 20%; transform: rotate(-10deg);"></i>
+            <i class="fa-solid fa-dragon hero-art" style="right: 15%; font-size: 100px; top: 40px; transform: rotate(10deg);"></i>
+
+            <div class="title">Débloquez votre<br>premier héros</div>
+        </div>
+
+        <div class="reward-list">
+
+            <div class="reward-row">
+                <div class="progress-section">
+                    <div class="progress-pill">
+                        <div class="fill-bar" style="width: 100%;"></div> <div class="crown-icon"><i class="fa-solid fa-crown"></i></div>
+                        <div class="progress-text">25/25</div>
+                    </div>
+                </div>
+                <div class="reward-section">
+                    <div class="glow-bg"></div>
+                    <i class="fa-solid fa-sack-dollar reward-img" style="color:#d4af37;"></i>
+                    <div class="amount-tag">x15</div>
+                    <i class="fa-solid fa-check" style="position:absolute; top:-5px; right:-5px; color:#00aa00; font-size:20px; -webkit-text-stroke: 1px white;"></i>
+                </div>
+            </div>
+
+            <div class="connector-arrow"><i class="fa-solid fa-caret-down"></i></div>
+
+            <div class="reward-row">
+                <div class="progress-section">
+                    <div class="progress-pill">
+                        <div class="fill-bar" style="width: 60%;"></div>
+                        <div class="crown-icon"><i class="fa-solid fa-crown"></i></div>
+                        <div class="progress-text">15/25</div>
+                    </div>
+                </div>
+                <div class="reward-section">
+                    <i class="fa-solid fa-coins reward-img" style="color:#ffd700;"></i>
+                    <div class="amount-tag">x30</div>
+                    <i class="fa-solid fa-lock lock-icon"></i>
+                </div>
+            </div>
+
+            <div class="connector-arrow"><i class="fa-solid fa-caret-down"></i></div>
+
+            <div class="reward-row">
+                <div class="progress-section">
+                    <div class="progress-pill">
+                        <div class="fill-bar" style="width: 0%;"></div>
+                        <div class="crown-icon"><i class="fa-solid fa-crown"></i></div>
+                        <div class="progress-text">0/25</div>
+                    </div>
+                </div>
+                <div class="reward-section">
+                    <i class="fa-solid fa-gem reward-img" style="color:#2ecc71;"></i>
+                    <div class="amount-tag">x50</div>
+                    <i class="fa-solid fa-lock lock-icon"></i>
+                </div>
+            </div>
+
+            <div class="connector-arrow"><i class="fa-solid fa-caret-down"></i></div>
+
+            <div class="reward-row grand-prize">
+                <div class="progress-section">
+                    <div class="progress-pill" style="height: 50px;">
+                        <div class="fill-bar" style="width: 0%;"></div>
+                        <div class="crown-icon" style="font-size: 28px;"><i class="fa-solid fa-crown"></i></div>
+                        <div class="progress-text">0/25</div>
+                    </div>
+                </div>
+                <div class="reward-section">
+                    <div class="glow-bg" style="width: 80px; height: 80px; background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);"></div>
+                    <i class="fa-solid fa-chest reward-img" style="font-size: 45px; color:#ffcc00;"></i>
+                    <div class="amount-tag" style="font-size: 20px;">x100</div>
+                    <i class="fa-solid fa-lock lock-icon"></i>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <button class="btn-close" onclick="alert('Fermeture de la fenêtre !')">Fermer</button>
+        </div>
+    </div>
+
+</body>
+</html>
