@@ -21,359 +21,378 @@
             padding: 20px;
         }
 
-        /* ========== HOME PAGE ========== */
         .home-container {
             max-width: 420px;
             margin: 0 auto;
         }
 
-        /* Header */
-        .home-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            background: linear-gradient(180deg, #2d4a6f 0%, #1e3550 100%);
-            border-radius: 20px;
+        /* ========== COMPACT DAILY REWARD WIDGET (64px height) ========== */
+        .daily-reward-widget {
+            background: linear-gradient(180deg, #4CAF50 0%, #2E7D32 100%);
+            border-radius: 12px;
+            padding: 8px;
             margin-bottom: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .avatar {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(180deg, #ff9500 0%, #ff6b00 100%);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            border: 3px solid #ffd700;
-        }
-
-        .user-name {
-            color: #fff;
-            font-size: 18px;
-        }
-
-        .coins-display {
-            background: linear-gradient(180deg, #ffd700 0%, #ffb300 100%);
-            padding: 8px 20px;
-            border-radius: 25px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 3px 0 #cc8800;
-        }
-
-        .coins-display span {
-            font-size: 18px;
-            color: #5d4037;
-        }
-
-        /* Daily Reward Card */
-        .reward-card {
-            background: linear-gradient(180deg, #ffb347 0%, #ff9500 100%);
-            border-radius: 25px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 30px rgba(255, 149, 0, 0.3);
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
             cursor: pointer;
-            transition: transform 0.2s;
+            border: 2px solid #1B5E20;
         }
 
-        .reward-card:hover {
-            transform: scale(1.02);
-        }
-
-        .reward-card:active {
-            transform: scale(0.98);
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .card-title {
-            font-family: 'Luckiest Guy', cursive;
-            font-size: 24px;
+        /* Sparkles decoration */
+        .widget-sparkles {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 12px;
             color: #fff;
-            text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+            animation: twinkle 1s ease-in-out infinite;
         }
 
-        .freespin-badge {
-            background: linear-gradient(180deg, #9c27b0 0%, #7b1fa2 100%);
-            padding: 8px 15px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 3px 0 #4a148c;
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
         }
 
-        .freespin-badge span {
-            color: #fff;
-            font-size: 16px;
-        }
-
-        .freespin-icon {
-            font-size: 20px;
-        }
-
-        /* Days Progress Strip */
-        .days-strip {
-            display: flex;
-            gap: 8px;
-            justify-content: space-between;
-            background: rgba(255,255,255,0.2);
-            padding: 15px;
-            border-radius: 15px;
-        }
-
-        .day-item {
-            flex: 1;
+        /* Title row */
+        .widget-title {
             text-align: center;
-            position: relative;
-        }
-
-        .day-circle {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            margin: 0 auto 5px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 14px;
-            position: relative;
-            transition: all 0.3s;
-        }
-
-        /* State: Claimed (green with checkmark) */
-        .day-item.claimed .day-circle {
-            background: linear-gradient(180deg, #4caf50 0%, #388e3c 100%);
-            border: 3px solid #81c784;
-            box-shadow: 0 3px 10px rgba(76, 175, 80, 0.4);
-        }
-
-        .day-item.claimed .day-circle::after {
-            content: '✓';
             color: #fff;
-            font-size: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+
+        /* Days container - 64px height */
+        .days-progress-bar {
+            display: flex;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 4px;
+            height: 64px;
+        }
+
+        /* Individual day box */
+        .day-box {
+            flex: 1;
+            background: linear-gradient(180deg, #E8F5E9 0%, #C8E6C9 100%);
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 4px 2px;
+            position: relative;
+            border: 2px solid #A5D6A7;
+            transition: all 0.2s;
+        }
+
+        .day-box .day-num {
+            font-size: 9px;
+            color: #2E7D32;
             font-weight: bold;
         }
 
-        /* State: Claimable (pulsing gold) */
-        .day-item.claimable .day-circle {
-            background: linear-gradient(180deg, #ffd700 0%, #ffb300 100%);
-            border: 3px solid #fff;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
-            animation: pulse-gold 1.5s ease-in-out infinite;
-        }
-
-        .day-item.claimable .day-circle::after {
-            content: '🎁';
-            font-size: 22px;
-        }
-
-        @keyframes pulse-gold {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
-            50% { transform: scale(1.1); box-shadow: 0 0 30px rgba(255, 215, 0, 0.8); }
-        }
-
-        /* State: Unclaimed (grey, missed) */
-        .day-item.unclaimed .day-circle {
-            background: linear-gradient(180deg, #9e9e9e 0%, #757575 100%);
-            border: 3px solid #bdbdbd;
-            opacity: 0.7;
-        }
-
-        .day-item.unclaimed .day-circle::after {
-            content: '✕';
-            color: #fff;
-            font-size: 18px;
-        }
-
-        /* State: Locked (future days) */
-        .day-item.locked .day-circle {
-            background: linear-gradient(180deg, #546e7a 0%, #37474f 100%);
-            border: 3px solid #78909c;
-        }
-
-        .day-item.locked .day-circle::after {
-            content: '🔒';
+        .day-box .day-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 16px;
         }
 
-        .day-label {
-            font-size: 11px;
-            color: #fff;
-            text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+        .day-box .day-reward {
+            font-size: 10px;
+            color: #2E7D32;
+            font-weight: bold;
         }
 
-        /* Freespin Amount Display */
-        .freespin-amount {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 15px;
-            padding: 12px;
-            background: linear-gradient(180deg, #fff 0%, #f5f5f5 100%);
-            border-radius: 15px;
+        /* State: Claimed */
+        .day-box.claimed {
+            background: linear-gradient(180deg, #E8F5E9 0%, #C8E6C9 100%);
+            border-color: #81C784;
         }
 
-        .spin-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(180deg, #e91e63 0%, #c2185b 100%);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            animation: spin 3s linear infinite;
+        .day-box.claimed .day-icon {
+            color: #4CAF50;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .day-box.claimed .day-icon::after {
+            content: '✓';
+            font-size: 18px;
+            font-weight: bold;
         }
 
-        .spin-icon::after {
-            content: '⭐';
-            font-size: 20px;
+        /* State: Claimable (highlighted) */
+        .day-box.claimable {
+            background: linear-gradient(180deg, #FFF9C4 0%, #FFEB3B 100%);
+            border-color: #FBC02D;
+            box-shadow: 0 0 10px rgba(255, 235, 59, 0.6);
+            animation: glow-yellow 1.5s ease-in-out infinite;
+            transform: scale(1.05);
+            z-index: 2;
         }
 
-        .amount-text {
-            font-size: 28px;
-            color: #e91e63;
-            text-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+        @keyframes glow-yellow {
+            0%, 100% { box-shadow: 0 0 10px rgba(255, 235, 59, 0.6); }
+            50% { box-shadow: 0 0 20px rgba(255, 235, 59, 0.9); }
         }
 
-        .amount-label {
-            font-size: 14px;
-            color: #666;
+        .day-box.claimable .day-num {
+            color: #F57F17;
         }
 
-        /* Progress Bar */
-        .progress-container {
-            margin-top: 15px;
+        .day-box.claimable .day-reward {
+            color: #F57F17;
         }
 
-        .progress-label {
-            display: flex;
-            justify-content: space-between;
-            color: #fff;
-            font-size: 12px;
-            margin-bottom: 5px;
+        /* State: Unclaimed (missed) */
+        .day-box.unclaimed {
+            background: linear-gradient(180deg, #EEEEEE 0%, #BDBDBD 100%);
+            border-color: #9E9E9E;
+            opacity: 0.7;
         }
 
-        .progress-bar {
-            height: 12px;
-            background: rgba(0,0,0,0.3);
+        .day-box.unclaimed .day-num,
+        .day-box.unclaimed .day-reward {
+            color: #757575;
+        }
+
+        .day-box.unclaimed .day-icon::after {
+            content: '✕';
+            font-size: 16px;
+            color: #757575;
+        }
+
+        /* State: Locked */
+        .day-box.locked {
+            background: linear-gradient(180deg, #E8F5E9 0%, #C8E6C9 100%);
+            border-color: #A5D6A7;
+            opacity: 0.6;
+        }
+
+        .day-box.locked .day-icon {
+            opacity: 0.5;
+        }
+
+        /* Coins icon SVG */
+        .coins-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Claim button */
+        .claim-button {
+            display: block;
+            width: 100%;
+            margin-top: 8px;
+            padding: 10px;
+            background: linear-gradient(180deg, #F5F5F5 0%, #E0E0E0 100%);
+            border: none;
+            border-radius: 20px;
+            font-family: 'Fredoka One', cursive;
+            font-size: 16px;
+            color: #333;
+            cursor: pointer;
+            box-shadow: 0 3px 0 #BDBDBD;
+            transition: all 0.1s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .claim-button:hover {
+            background: linear-gradient(180deg, #FFFFFF 0%, #EEEEEE 100%);
+        }
+
+        .claim-button:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 #BDBDBD;
+        }
+
+        .claim-button.has-reward {
+            background: linear-gradient(180deg, #FFEB3B 0%, #FBC02D 100%);
+            color: #5D4037;
+            box-shadow: 0 3px 0 #F57F17;
+        }
+
+        /* ========== ALTERNATIVE ULTRA COMPACT VERSION ========== */
+        .daily-reward-mini {
+            background: linear-gradient(180deg, #4CAF50 0%, #2E7D32 100%);
             border-radius: 10px;
+            padding: 6px 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border: 2px solid #1B5E20;
+            cursor: pointer;
+            position: relative;
             overflow: hidden;
         }
 
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #4caf50 0%, #8bc34a 100%);
+        .mini-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .mini-title {
+            color: #fff;
+            font-size: 12px;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .mini-reward-badge {
+            background: linear-gradient(180deg, #FFEB3B 0%, #FFC107 100%);
+            padding: 2px 8px;
             border-radius: 10px;
-            transition: width 0.5s ease-out;
-            position: relative;
+            font-size: 10px;
+            color: #5D4037;
+            font-weight: bold;
         }
 
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 50%;
-            background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%);
+        .mini-days-row {
+            display: flex;
+            gap: 3px;
+            height: 44px;
         }
 
-        /* CTA Button */
-        .claim-btn {
+        .mini-day {
+            flex: 1;
+            background: linear-gradient(180deg, #E8F5E9 0%, #C8E6C9 100%);
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1.5px solid #A5D6A7;
+            padding: 2px;
+        }
+
+        .mini-day .m-label {
+            font-size: 7px;
+            color: #2E7D32;
+            font-weight: bold;
+        }
+
+        .mini-day .m-icon {
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        .mini-day .m-amount {
+            font-size: 8px;
+            color: #2E7D32;
+            font-weight: bold;
+        }
+
+        .mini-day.claimed .m-icon::after {
+            content: '✓';
+            color: #4CAF50;
+        }
+
+        .mini-day.claimable {
+            background: linear-gradient(180deg, #FFF9C4 0%, #FFEB3B 100%);
+            border-color: #FBC02D;
+            transform: scale(1.08);
+            box-shadow: 0 0 8px rgba(255, 235, 59, 0.8);
+            z-index: 2;
+        }
+
+        .mini-day.claimable .m-label,
+        .mini-day.claimable .m-amount {
+            color: #F57F17;
+        }
+
+        .mini-day.unclaimed {
+            background: linear-gradient(180deg, #EEEEEE 0%, #BDBDBD 100%);
+            border-color: #9E9E9E;
+            opacity: 0.6;
+        }
+
+        .mini-day.unclaimed .m-icon::after {
+            content: '✕';
+            color: #757575;
+        }
+
+        .mini-day.locked {
+            opacity: 0.5;
+        }
+
+        .mini-claim-btn {
             display: block;
             width: 100%;
-            padding: 15px;
-            margin-top: 15px;
-            background: linear-gradient(180deg, #7ed56f 0%, #55c046 100%);
+            margin-top: 6px;
+            padding: 8px;
+            background: linear-gradient(180deg, #F5F5F5 0%, #E0E0E0 100%);
             border: none;
             border-radius: 15px;
             font-family: 'Fredoka One', cursive;
-            font-size: 20px;
-            color: #fff;
+            font-size: 14px;
+            color: #333;
             cursor: pointer;
-            box-shadow: 0 5px 0 #3a9e2c;
-            text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
-            transition: all 0.1s;
+            box-shadow: 0 2px 0 #BDBDBD;
+            text-transform: uppercase;
         }
 
-        .claim-btn:hover {
-            background: linear-gradient(180deg, #8fe580 0%, #66d157 100%);
+        .mini-claim-btn.active {
+            background: linear-gradient(180deg, #FFEB3B 0%, #FBC02D 100%);
+            color: #5D4037;
+            box-shadow: 0 2px 0 #F57F17;
         }
 
-        .claim-btn:active {
-            transform: translateY(3px);
-            box-shadow: 0 2px 0 #3a9e2c;
-        }
-
-        .claim-btn.disabled {
-            background: linear-gradient(180deg, #9e9e9e 0%, #757575 100%);
-            box-shadow: 0 5px 0 #616161;
-            cursor: not-allowed;
-        }
-
-        /* Legend */
+        /* ========== LEGEND ========== */
         .legend {
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 12px;
             justify-content: center;
-            margin-top: 20px;
-            padding: 15px;
+            margin-top: 15px;
+            padding: 12px;
             background: rgba(255,255,255,0.1);
-            border-radius: 15px;
+            border-radius: 10px;
         }
 
         .legend-item {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .legend-dot {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 10px;
+            font-size: 8px;
+            color: #fff;
         }
 
-        .legend-dot.claimed { background: #4caf50; }
-        .legend-dot.claimable { background: #ffd700; }
-        .legend-dot.unclaimed { background: #9e9e9e; }
-        .legend-dot.locked { background: #546e7a; }
+        .legend-dot.claimed { background: #4CAF50; }
+        .legend-dot.claimable { background: #FFEB3B; color: #5D4037; }
+        .legend-dot.unclaimed { background: #9E9E9E; }
+        .legend-dot.locked { background: #A5D6A7; }
 
         .legend-text {
             color: #fff;
-            font-size: 12px;
+            font-size: 11px;
         }
 
-        /* ========== MODAL ========== */
+        /* Section titles */
+        .section-title {
+            color: #fff;
+            font-size: 14px;
+            margin: 20px 0 10px;
+            opacity: 0.7;
+        }
+
+        /* ========== MODAL (keep existing) ========== */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -396,370 +415,157 @@
             position: relative;
             width: 100%;
             max-width: 380px;
-            background: linear-gradient(180deg, #ffb347 0%, #ff9500 100%);
-            border-radius: 30px;
-            padding: 12px;
+            background: linear-gradient(180deg, #4CAF50 0%, #2E7D32 100%);
+            border-radius: 20px;
+            padding: 15px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
             transform: scale(0.8);
             transition: transform 0.3s;
+            border: 3px solid #1B5E20;
         }
 
         .modal-overlay.show .modal {
             transform: scale(1);
         }
 
-        .modal-header {
-            position: relative;
+        .modal-title {
             text-align: center;
-            margin-bottom: -10px;
-        }
-
-        .gifts-container {
-            position: relative;
-            height: 100px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-        }
-
-        .gift-main {
-            width: 90px;
-            height: 80px;
-            background: linear-gradient(180deg, #ffeb3b 0%, #ffc107 100%);
-            border-radius: 8px;
-            position: relative;
-            z-index: 2;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-        .gift-main::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 20px;
-            background: linear-gradient(180deg, #ff4081 0%, #e91e63 100%);
-            transform: translateY(-50%);
-        }
-
-        .gift-main::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            width: 20px;
-            background: linear-gradient(90deg, #ff4081 0%, #e91e63 100%);
-            transform: translateX(-50%);
-        }
-
-        .ribbon {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 40px;
-            z-index: 3;
-        }
-
-        .ribbon-bow {
-            position: absolute;
-            top: 5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 35px;
-        }
-
-        .ribbon-loop {
-            position: absolute;
-            width: 25px;
-            height: 30px;
-            background: linear-gradient(180deg, #ff6b9d 0%, #ff4081 100%);
-            border-radius: 50%;
-            top: 0;
-        }
-
-        .ribbon-loop.left { left: 0; transform: rotate(-30deg); }
-        .ribbon-loop.right { right: 0; transform: rotate(30deg); }
-
-        .ribbon-center {
-            position: absolute;
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 15px;
-            height: 15px;
-            background: #ff4081;
-            border-radius: 50%;
-            z-index: 1;
-        }
-
-        .gift-side {
-            width: 50px;
-            height: 50px;
-            border-radius: 6px;
-            position: absolute;
-            bottom: 0;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-        }
-
-        .gift-left {
-            left: 20%;
-            background: linear-gradient(180deg, #9c27b0 0%, #7b1fa2 100%);
-            z-index: 1;
-        }
-
-        .gift-right {
-            right: 20%;
-            background: linear-gradient(180deg, #9c27b0 0%, #7b1fa2 100%);
-            z-index: 1;
-        }
-
-        .sparkle {
-            position: absolute;
-            font-size: 20px;
-            animation: sparkle 1.5s ease-in-out infinite;
-        }
-
-        .sparkle-1 { top: 10px; left: 25%; color: #4caf50; animation-delay: 0s; }
-        .sparkle-2 { top: 5px; right: 25%; color: #4caf50; animation-delay: 0.5s; }
-        .sparkle-3 { top: 30px; left: 15%; color: #ffeb3b; animation-delay: 0.3s; font-size: 14px; }
-        .sparkle-4 { top: 25px; right: 15%; color: #ffeb3b; animation-delay: 0.8s; font-size: 14px; }
-
-        @keyframes sparkle {
-            0%, 100% { opacity: 0.5; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1.2); }
-        }
-
-        .title-banner {
-            background: linear-gradient(180deg, #ffe066 0%, #ffd000 50%, #e6b800 100%);
-            padding: 12px 30px;
-            border-radius: 0 0 20px 20px;
-            margin: 0 20px;
-            position: relative;
-            box-shadow: 0 4px 0 #cc9900;
-        }
-
-        .title-banner h1 {
+            color: #fff;
             font-family: 'Luckiest Guy', cursive;
-            font-size: 28px;
-            color: #8b4513;
-            text-shadow: 2px 2px 0 #fff;
-            letter-spacing: 1px;
+            font-size: 24px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 15px;
         }
 
-        .close-btn {
+        .modal-days-grid {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 15px;
+        }
+
+        .modal-day {
+            flex: 1;
+            background: linear-gradient(180deg, #E8F5E9 0%, #C8E6C9 100%);
+            border-radius: 8px;
+            padding: 8px 4px;
+            text-align: center;
+            border: 2px solid #A5D6A7;
+            position: relative;
+        }
+
+        .modal-day .md-label {
+            font-size: 10px;
+            color: #2E7D32;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .modal-day .md-icon {
+            width: 30px;
+            height: 30px;
+            margin: 0 auto 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-day .md-amount {
+            font-size: 11px;
+            color: #2E7D32;
+            font-weight: bold;
+        }
+
+        .modal-day.claimed {
+            background: linear-gradient(180deg, #C8E6C9 0%, #A5D6A7 100%);
+        }
+
+        .modal-day.claimed .md-icon::after {
+            content: '✓';
+            font-size: 22px;
+            color: #2E7D32;
+        }
+
+        .modal-day.claimable {
+            background: linear-gradient(180deg, #FFF9C4 0%, #FFEB3B 100%);
+            border-color: #FBC02D;
+            box-shadow: 0 0 15px rgba(255, 235, 59, 0.7);
+            transform: scale(1.05);
+        }
+
+        .modal-day.claimable .md-label,
+        .modal-day.claimable .md-amount {
+            color: #F57F17;
+        }
+
+        .modal-day.unclaimed {
+            background: linear-gradient(180deg, #EEEEEE 0%, #BDBDBD 100%);
+            border-color: #9E9E9E;
+            opacity: 0.6;
+        }
+
+        .modal-day.unclaimed .md-icon::after {
+            content: '✕';
+            font-size: 18px;
+            color: #757575;
+        }
+
+        .modal-day.locked {
+            opacity: 0.5;
+        }
+
+        .modal-day.locked .md-icon::after {
+            content: '🔒';
+            font-size: 16px;
+        }
+
+        .modal-close-btn {
             position: absolute;
-            top: 110px;
-            right: -5px;
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(180deg, #ff6b6b 0%, #ee5a5a 100%);
-            border: 4px solid #cc4444;
+            top: -10px;
+            right: -10px;
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(180deg, #f44336 0%, #c62828 100%);
+            border: 3px solid #fff;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            z-index: 10;
-            box-shadow: 0 3px 0 #aa3333;
-            transition: transform 0.1s;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
         }
 
-        .close-btn:active { transform: scale(0.95); }
-
-        .close-btn::before,
-        .close-btn::after {
+        .modal-close-btn::before,
+        .modal-close-btn::after {
             content: '';
             position: absolute;
-            width: 20px;
-            height: 4px;
+            width: 15px;
+            height: 3px;
             background: #fff;
             border-radius: 2px;
         }
 
-        .close-btn::before { transform: rotate(45deg); }
-        .close-btn::after { transform: rotate(-45deg); }
+        .modal-close-btn::before { transform: rotate(45deg); }
+        .modal-close-btn::after { transform: rotate(-45deg); }
 
-        .modal-content {
-            background: linear-gradient(180deg, #fff8e7 0%, #fff5e0 100%);
-            border-radius: 20px;
-            padding: 20px 15px;
-            margin-top: 10px;
-        }
-
-        .rewards-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .day-card {
-            background: linear-gradient(180deg, #e8f4fc 0%, #d4ebf7 100%);
-            border: 3px solid #a8d4e6;
-            border-radius: 15px;
-            padding: 10px 5px;
-            text-align: center;
-            position: relative;
-            transition: transform 0.2s;
-            cursor: pointer;
-        }
-
-        .day-card:hover { transform: scale(1.02); }
-        .day-card:active { transform: scale(0.98); }
-
-        .day-card.active {
-            background: linear-gradient(180deg, #7ed56f 0%, #55c046 100%);
-            border-color: #3a9e2c;
-            box-shadow: 0 0 20px rgba(126, 213, 111, 0.5);
-        }
-
-        .day-card.active::before {
-            content: '';
-            position: absolute;
-            inset: 5px;
-            border: 2px dashed rgba(255, 255, 255, 0.5);
-            border-radius: 10px;
-            pointer-events: none;
-        }
-
-        .day-card.claimed-card {
-            background: linear-gradient(180deg, #a5d6a7 0%, #81c784 100%);
-            border-color: #66bb6a;
-        }
-
-        .day-card.locked-card {
-            background: linear-gradient(180deg, #cfd8dc 0%, #b0bec5 100%);
-            border-color: #90a4ae;
-            opacity: 0.7;
-        }
-
-        .day-card .day-label-card {
-            font-size: 14px;
-            color: #5a8aa8;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        .day-card.active .day-label-card,
-        .day-card.claimed-card .day-label-card {
-            color: #fff;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-        }
-
-        .reward-icon {
-            width: 55px;
-            height: 55px;
-            margin: 5px auto;
-            position: relative;
-        }
-
-        .reward-svg {
-            width: 50px;
-            height: 50px;
-        }
-
-        .reward-amount {
-            font-size: 14px;
-            color: #5a8aa8;
-            font-weight: bold;
-        }
-
-        .day-card.active .reward-amount,
-        .day-card.claimed-card .reward-amount {
-            color: #fff;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-        }
-
-        .checkmark-card {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            width: 22px;
-            height: 22px;
-            background: #4caf50;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 2px solid #fff;
-        }
-
-        .checkmark-card::after {
-            content: '✓';
-            color: #fff;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .lock-icon-card {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 30px;
-            opacity: 0.6;
-        }
-
-        .day-7-card {
-            background: linear-gradient(180deg, #e8f4fc 0%, #d4ebf7 100%);
-            border: 3px solid #a8d4e6;
-            border-radius: 15px;
-            padding: 15px;
-            text-align: center;
-        }
-
-        .day-7-card .day-label-card {
-            font-size: 16px;
-            margin-bottom: 10px;
-            color: #5a8aa8;
-        }
-
-        .day-7-rewards {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .day-7-item { text-align: center; }
-        .day-7-item .reward-icon { width: 45px; height: 45px; }
-        .day-7-item .reward-amount { font-size: 13px; }
-
-        .plus-sign {
-            font-size: 24px;
-            color: #4caf50;
-            font-weight: bold;
-        }
-
-        .ok-btn {
+        .modal-claim-btn {
             display: block;
-            width: 60%;
-            margin: 20px auto 10px;
-            padding: 15px 40px;
-            background: linear-gradient(180deg, #7ed56f 0%, #55c046 100%);
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(180deg, #F5F5F5 0%, #E0E0E0 100%);
             border: none;
-            border-radius: 30px;
+            border-radius: 25px;
             font-family: 'Fredoka One', cursive;
-            font-size: 24px;
-            color: #fff;
+            font-size: 18px;
+            color: #333;
             cursor: pointer;
-            box-shadow: 0 6px 0 #3a9e2c;
-            text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
-            transition: all 0.1s;
+            box-shadow: 0 4px 0 #BDBDBD;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .ok-btn:hover {
-            background: linear-gradient(180deg, #8fe580 0%, #66d157 100%);
-        }
-
-        .ok-btn:active {
-            transform: translateY(4px);
-            box-shadow: 0 2px 0 #3a9e2c;
+        .modal-claim-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #BDBDBD;
         }
 
         /* Reward Popup */
@@ -768,16 +574,17 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
-            background: linear-gradient(180deg, #ffd700 0%, #ffb300 100%);
-            padding: 30px 50px;
-            border-radius: 25px;
-            font-size: 24px;
-            color: #5d4037;
+            background: linear-gradient(180deg, #FFEB3B 0%, #FFC107 100%);
+            padding: 25px 40px;
+            border-radius: 20px;
+            font-size: 20px;
+            color: #5D4037;
             z-index: 200;
             box-shadow: 0 15px 50px rgba(0,0,0,0.4);
             text-align: center;
             opacity: 0;
             transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 3px solid #F57F17;
         }
 
         .reward-popup.show {
@@ -786,97 +593,119 @@
         }
 
         .reward-popup .big-icon {
-            font-size: 60px;
+            font-size: 50px;
             display: block;
             margin-bottom: 10px;
         }
 
         .reward-popup .reward-text {
-            font-size: 32px;
-            color: #e91e63;
+            font-size: 28px;
+            color: #E65100;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-
-    <!-- ========== HOME PAGE ========== -->
     <div class="home-container">
-        <!-- Header -->
-        <div class="home-header">
-            <div class="user-info">
-                <div class="avatar">👤</div>
-                <div class="user-name">Player_123</div>
+
+        <!-- ========== VERSION 1: Widget Compact 64px ========== -->
+        <div class="section-title">Widget Daily Reward (64px)</div>
+
+        <div class="daily-reward-widget" onclick="openModal()">
+            <div class="widget-title">DAILY REWARD</div>
+            <div class="days-progress-bar">
+                <!-- Day 1 - Claimed -->
+                <div class="day-box claimed">
+                    <span class="day-num">Day 1</span>
+                    <div class="day-icon"></div>
+                    <span class="day-reward">+1</span>
+                </div>
+                <!-- Day 2 - Claimed -->
+                <div class="day-box claimed">
+                    <span class="day-num">Day 2</span>
+                    <div class="day-icon"></div>
+                    <span class="day-reward">+2</span>
+                </div>
+                <!-- Day 3 - Unclaimed -->
+                <div class="day-box unclaimed">
+                    <span class="day-num">Day 3</span>
+                    <div class="day-icon"></div>
+                    <span class="day-reward">+3</span>
+                </div>
+                <!-- Day 4 - Claimable -->
+                <div class="day-box claimable">
+                    <span class="day-num">Day 4</span>
+                    <div class="day-icon">🪙</div>
+                    <span class="day-reward">+4</span>
+                </div>
+                <!-- Day 5 - Locked -->
+                <div class="day-box locked">
+                    <span class="day-num">Day 5</span>
+                    <div class="day-icon">🪙</div>
+                    <span class="day-reward">+5</span>
+                </div>
+                <!-- Day 6 - Locked -->
+                <div class="day-box locked">
+                    <span class="day-num">Day 6</span>
+                    <div class="day-icon">🪙</div>
+                    <span class="day-reward">+5</span>
+                </div>
+                <!-- Day 7 - Locked (bonus) -->
+                <div class="day-box locked">
+                    <span class="day-num">Day 7</span>
+                    <div class="day-icon">🎁</div>
+                    <span class="day-reward">+20</span>
+                </div>
             </div>
-            <div class="coins-display">
-                <span>🪙</span>
-                <span>2,450</span>
-            </div>
+            <button class="claim-button has-reward" onclick="event.stopPropagation(); claimReward()">CLAIM</button>
         </div>
 
-        <!-- Daily Reward Card -->
-        <div class="reward-card" onclick="openModal()">
-            <div class="card-header">
-                <div class="card-title">🎁 Daily Reward</div>
-                <div class="freespin-badge">
-                    <span class="freespin-icon">🎰</span>
-                    <span>20 Free Spins</span>
+        <!-- ========== VERSION 2: Mini Ultra Compact ========== -->
+        <div class="section-title">Mini Version</div>
+
+        <div class="daily-reward-mini" onclick="openModal()">
+            <div class="mini-header">
+                <span class="mini-title">DAILY REWARD</span>
+                <span class="mini-reward-badge">🎰 20 Free Spins</span>
+            </div>
+            <div class="mini-days-row">
+                <div class="mini-day claimed">
+                    <span class="m-label">D1</span>
+                    <span class="m-icon"></span>
+                    <span class="m-amount">+1</span>
+                </div>
+                <div class="mini-day claimed">
+                    <span class="m-label">D2</span>
+                    <span class="m-icon"></span>
+                    <span class="m-amount">+2</span>
+                </div>
+                <div class="mini-day unclaimed">
+                    <span class="m-label">D3</span>
+                    <span class="m-icon"></span>
+                    <span class="m-amount">+3</span>
+                </div>
+                <div class="mini-day claimable">
+                    <span class="m-label">D4</span>
+                    <span class="m-icon">🪙</span>
+                    <span class="m-amount">+4</span>
+                </div>
+                <div class="mini-day locked">
+                    <span class="m-label">D5</span>
+                    <span class="m-icon">🪙</span>
+                    <span class="m-amount">+5</span>
+                </div>
+                <div class="mini-day locked">
+                    <span class="m-label">D6</span>
+                    <span class="m-icon">🪙</span>
+                    <span class="m-amount">+5</span>
+                </div>
+                <div class="mini-day locked">
+                    <span class="m-label">D7</span>
+                    <span class="m-icon">🎁</span>
+                    <span class="m-amount">+20</span>
                 </div>
             </div>
-
-            <!-- Days Progress Strip -->
-            <div class="days-strip">
-                <div class="day-item claimed">
-                    <div class="day-circle"></div>
-                    <div class="day-label">Day 1</div>
-                </div>
-                <div class="day-item claimed">
-                    <div class="day-circle"></div>
-                    <div class="day-label">Day 2</div>
-                </div>
-                <div class="day-item unclaimed">
-                    <div class="day-circle"></div>
-                    <div class="day-label">Day 3</div>
-                </div>
-                <div class="day-item claimable">
-                    <div class="day-circle"></div>
-                    <div class="day-label">Day 4</div>
-                </div>
-                <div class="day-item locked">
-                    <div class="day-circle"></div>
-                    <div class="day-label">Day 5</div>
-                </div>
-                <div class="day-item locked">
-                    <div class="day-circle"></div>
-                    <div class="day-label">Day 6</div>
-                </div>
-                <div class="day-item locked">
-                    <div class="day-circle"></div>
-                    <div class="day-label">Day 7</div>
-                </div>
-            </div>
-
-            <!-- Freespin Amount -->
-            <div class="freespin-amount">
-                <div class="spin-icon"></div>
-                <div>
-                    <div class="amount-text">20 Free Spins</div>
-                    <div class="amount-label">Réclamez maintenant!</div>
-                </div>
-            </div>
-
-            <!-- Progress Bar -->
-            <div class="progress-container">
-                <div class="progress-label">
-                    <span>Progression</span>
-                    <span>3/7 jours</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 43%;"></div>
-                </div>
-            </div>
-
-            <!-- CTA Button -->
-            <button class="claim-btn">🎁 Réclamer maintenant</button>
+            <button class="mini-claim-btn active" onclick="event.stopPropagation(); claimReward()">CLAIM</button>
         </div>
 
         <!-- Legend -->
@@ -886,7 +715,7 @@
                 <span class="legend-text">Réclamé</span>
             </div>
             <div class="legend-item">
-                <div class="legend-dot claimable">🎁</div>
+                <div class="legend-dot claimable">🪙</div>
                 <span class="legend-text">À réclamer</span>
             </div>
             <div class="legend-item">
@@ -903,153 +732,51 @@
     <!-- ========== MODAL ========== -->
     <div class="modal-overlay" id="rewardModal">
         <div class="modal">
-            <div class="modal-header">
-                <div class="gifts-container">
-                    <span class="sparkle sparkle-1">✦</span>
-                    <span class="sparkle sparkle-2">✦</span>
-                    <span class="sparkle sparkle-3">★</span>
-                    <span class="sparkle sparkle-4">★</span>
-                    <div class="gift-side gift-left"></div>
-                    <div class="gift-side gift-right"></div>
-                    <div class="gift-main">
-                        <div class="ribbon">
-                            <div class="ribbon-bow">
-                                <div class="ribbon-loop left"></div>
-                                <div class="ribbon-loop right"></div>
-                                <div class="ribbon-center"></div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="modal-close-btn" onclick="closeModal()"></div>
+            <div class="modal-title">DAILY REWARD</div>
+
+            <div class="modal-days-grid">
+                <div class="modal-day claimed">
+                    <div class="md-label">Day 1</div>
+                    <div class="md-icon"></div>
+                    <div class="md-amount">+1</div>
                 </div>
-                <div class="title-banner">
-                    <h1>Daily Reward</h1>
+                <div class="modal-day claimed">
+                    <div class="md-label">Day 2</div>
+                    <div class="md-icon"></div>
+                    <div class="md-amount">+2</div>
                 </div>
-                <div class="close-btn" onclick="closeModal()"></div>
-            </div>
-
-            <div class="modal-content">
-                <div class="rewards-grid">
-                    <!-- Day 1 - Claimed -->
-                    <div class="day-card claimed-card" data-day="1">
-                        <div class="checkmark-card"></div>
-                        <div class="day-label-card">Day 1</div>
-                        <div class="reward-icon">
-                            <svg viewBox="0 0 100 100" class="reward-svg">
-                                <polygon points="35,10 50,35 65,10" fill="#e53935"/>
-                                <circle cx="50" cy="55" r="30" fill="#ff6b6b"/>
-                                <circle cx="50" cy="55" r="24" fill="#ff8a80"/>
-                                <polygon points="50,35 54,47 67,47 57,55 61,67 50,59 39,67 43,55 33,47 46,47" fill="#ffd700"/>
-                            </svg>
-                        </div>
-                        <div class="reward-amount">x500</div>
-                    </div>
-
-                    <!-- Day 2 - Claimed -->
-                    <div class="day-card claimed-card" data-day="2">
-                        <div class="checkmark-card"></div>
-                        <div class="day-label-card">Day 2</div>
-                        <div class="reward-icon">
-                            <svg viewBox="0 0 100 100" class="reward-svg">
-                                <path d="M30,35 L50,35 L50,25 L70,40 L50,55 L50,45 L30,45 Z" fill="#9c27b0"/>
-                                <path d="M70,65 L50,65 L50,75 L30,60 L50,45 L50,55 L70,55 Z" fill="#03a9f4"/>
-                                <circle cx="50" cy="50" r="8" fill="#fff"/>
-                            </svg>
-                        </div>
-                        <div class="reward-amount">x1</div>
-                    </div>
-
-                    <!-- Day 3 - Unclaimed (missed) -->
-                    <div class="day-card" data-day="3" style="background: linear-gradient(180deg, #e0e0e0 0%, #bdbdbd 100%); border-color: #9e9e9e;">
-                        <div class="day-label-card" style="color: #666;">Day 3</div>
-                        <div class="reward-icon" style="opacity: 0.5;">
-                            <svg viewBox="0 0 100 100" class="reward-svg">
-                                <ellipse cx="50" cy="40" rx="28" ry="32" fill="#9e9e9e"/>
-                                <rect x="40" y="75" width="20" height="15" rx="3" fill="#757575"/>
-                            </svg>
-                        </div>
-                        <div class="reward-amount" style="color: #666;">Manqué</div>
-                    </div>
-
-                    <!-- Day 4 - Claimable (Active) -->
-                    <div class="day-card active" data-day="4">
-                        <div class="day-label-card">Day 4</div>
-                        <div class="reward-icon">
-                            <svg viewBox="0 0 100 100" class="reward-svg">
-                                <rect x="20" y="45" width="60" height="35" rx="5" fill="#8d6e63"/>
-                                <rect x="20" y="45" width="60" height="15" fill="#6d4c41"/>
-                                <path d="M18,45 Q50,20 82,45 L82,50 Q50,25 18,50 Z" fill="#a1887f"/>
-                                <ellipse cx="50" cy="55" rx="15" ry="8" fill="#ffd700"/>
-                                <rect x="45" y="50" width="10" height="12" rx="2" fill="#ffc107"/>
-                            </svg>
-                        </div>
-                        <div class="reward-amount">x1</div>
-                    </div>
-
-                    <!-- Day 5 - Locked -->
-                    <div class="day-card locked-card" data-day="5">
-                        <div class="day-label-card" style="color: #78909c;">Day 5</div>
-                        <div class="reward-icon" style="opacity: 0.4;">
-                            <svg viewBox="0 0 100 100" class="reward-svg">
-                                <rect x="15" y="30" width="70" height="45" rx="5" fill="#90a4ae"/>
-                                <rect x="20" y="35" width="60" height="35" rx="3" fill="#b0bec5"/>
-                            </svg>
-                        </div>
-                        <div class="lock-icon-card">🔒</div>
-                        <div class="reward-amount" style="color: #78909c;">x1</div>
-                    </div>
-
-                    <!-- Day 6 - Locked -->
-                    <div class="day-card locked-card" data-day="6">
-                        <div class="day-label-card" style="color: #78909c;">Day 6</div>
-                        <div class="reward-icon" style="opacity: 0.4;">
-                            <svg viewBox="0 0 100 100" class="reward-svg">
-                                <ellipse cx="50" cy="50" rx="22" ry="8" fill="#90a4ae"/>
-                                <ellipse cx="50" cy="45" rx="22" ry="8" fill="#b0bec5"/>
-                            </svg>
-                        </div>
-                        <div class="lock-icon-card">🔒</div>
-                        <div class="reward-amount" style="color: #78909c;">x1</div>
-                    </div>
+                <div class="modal-day unclaimed">
+                    <div class="md-label">Day 3</div>
+                    <div class="md-icon"></div>
+                    <div class="md-amount">+3</div>
                 </div>
-
-                <!-- Day 7 - Locked Special -->
-                <div class="day-7-card" style="opacity: 0.7; background: linear-gradient(180deg, #cfd8dc 0%, #b0bec5 100%); border-color: #90a4ae;">
-                    <div class="day-label-card" style="color: #78909c;">Day 7 🔒</div>
-                    <div class="day-7-rewards">
-                        <div class="day-7-item">
-                            <div class="reward-icon" style="opacity: 0.5;">
-                                <svg viewBox="0 0 100 100" class="reward-svg">
-                                    <path d="M30,35 L50,35 L50,25 L70,40 L50,55 L50,45 L30,45 Z" fill="#90a4ae"/>
-                                    <path d="M70,65 L50,65 L50,75 L30,60 L50,45 L50,55 L70,55 Z" fill="#78909c"/>
-                                </svg>
-                            </div>
-                            <div class="reward-amount" style="color: #78909c;">x200</div>
-                        </div>
-                        <span class="plus-sign" style="color: #90a4ae;">+</span>
-                        <div class="day-7-item">
-                            <div class="reward-icon" style="opacity: 0.5;">
-                                <svg viewBox="0 0 100 100" class="reward-svg">
-                                    <rect x="15" y="30" width="70" height="45" rx="5" fill="#90a4ae"/>
-                                    <rect x="20" y="35" width="60" height="35" rx="3" fill="#b0bec5"/>
-                                </svg>
-                            </div>
-                            <div class="reward-amount" style="color: #78909c;">x2</div>
-                        </div>
-                        <span class="plus-sign" style="color: #90a4ae;">+</span>
-                        <div class="day-7-item">
-                            <div class="reward-icon" style="opacity: 0.5;">
-                                <svg viewBox="0 0 100 100" class="reward-svg">
-                                    <ellipse cx="50" cy="50" rx="22" ry="8" fill="#90a4ae"/>
-                                    <ellipse cx="50" cy="45" rx="22" ry="8" fill="#b0bec5"/>
-                                </svg>
-                            </div>
-                            <div class="reward-amount" style="color: #78909c;">x2</div>
-                        </div>
-                    </div>
+                <div class="modal-day claimable">
+                    <div class="md-label">Day 4</div>
+                    <div class="md-icon">🪙</div>
+                    <div class="md-amount">+4</div>
+                </div>
+                <div class="modal-day locked">
+                    <div class="md-label">Day 5</div>
+                    <div class="md-icon"></div>
+                    <div class="md-amount">+5</div>
                 </div>
             </div>
 
-            <button class="ok-btn" onclick="claimReward()">Réclamer 🎰</button>
+            <div class="modal-days-grid" style="margin-bottom: 15px;">
+                <div class="modal-day locked" style="flex: 1;">
+                    <div class="md-label">Day 6</div>
+                    <div class="md-icon"></div>
+                    <div class="md-amount">+5</div>
+                </div>
+                <div class="modal-day locked" style="flex: 2; background: linear-gradient(180deg, #FFF8E1 0%, #FFECB3 100%); border-color: #FFD54F;">
+                    <div class="md-label">Day 7 - BONUS</div>
+                    <div class="md-icon">🎁</div>
+                    <div class="md-amount" style="color: #FF6F00;">+20 Free Spins!</div>
+                </div>
+            </div>
+
+            <button class="modal-claim-btn" onclick="claimReward()">CLAIM</button>
         </div>
     </div>
 
@@ -1062,61 +789,51 @@
 
     <script>
         function openModal() {
-            const modal = document.getElementById('rewardModal');
-            modal.classList.add('show');
+            document.getElementById('rewardModal').classList.add('show');
         }
 
         function closeModal() {
-            const modal = document.getElementById('rewardModal');
-            modal.classList.remove('show');
+            document.getElementById('rewardModal').classList.remove('show');
         }
 
         function claimReward() {
             closeModal();
 
-            // Show reward popup
             const popup = document.getElementById('rewardPopup');
             popup.classList.add('show');
 
-            // Update home page state
+            // Update widget states
             setTimeout(() => {
-                const claimableDay = document.querySelector('.day-item.claimable');
-                if (claimableDay) {
-                    claimableDay.classList.remove('claimable');
-                    claimableDay.classList.add('claimed');
+                // Find claimable and update to claimed
+                document.querySelectorAll('.day-box.claimable, .mini-day.claimable').forEach(el => {
+                    el.classList.remove('claimable');
+                    el.classList.add('claimed');
+                    const icon = el.querySelector('.day-icon, .m-icon');
+                    if (icon) icon.textContent = '';
+                });
 
-                    // Move claimable to next locked day
-                    const nextLocked = document.querySelector('.day-item.locked');
-                    if (nextLocked) {
-                        nextLocked.classList.remove('locked');
-                        nextLocked.classList.add('claimable');
-                    }
+                // Find next locked and make claimable
+                const nextLocked = document.querySelector('.day-box.locked');
+                const nextLockedMini = document.querySelector('.mini-day.locked');
+
+                if (nextLocked) {
+                    nextLocked.classList.remove('locked');
+                    nextLocked.classList.add('claimable');
                 }
-
-                // Update progress
-                updateProgress();
+                if (nextLockedMini) {
+                    nextLockedMini.classList.remove('locked');
+                    nextLockedMini.classList.add('claimable');
+                }
             }, 500);
 
-            // Hide popup after delay
             setTimeout(() => {
                 popup.classList.remove('show');
             }, 2500);
         }
 
-        function updateProgress() {
-            const claimed = document.querySelectorAll('.day-item.claimed').length;
-            const total = 7;
-            const percent = (claimed / total) * 100;
-
-            document.querySelector('.progress-fill').style.width = percent + '%';
-            document.querySelector('.progress-label span:last-child').textContent = claimed + '/7 jours';
-        }
-
         // Close modal on overlay click
         document.getElementById('rewardModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
+            if (e.target === this) closeModal();
         });
     </script>
 </body>
