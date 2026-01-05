@@ -3,18 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Daily Reward - Betclic Light</title>
-    <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Orbitron:wght@500;700;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Daily Reward - Rocket Progress</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Betclic Brand Colors - Light Theme */
             --betclic-red: #E30613;
             --betclic-red-dark: #B8050F;
-            --betclic-red-light: #FF1A27;
             --bg-primary: #FFFFFF;
             --bg-secondary: #F5F5F5;
             --bg-card: #FFFFFF;
-            --bg-elevated: #F0F0F0;
             --gold: #FFD700;
             --gold-dark: #E6A800;
             --text-primary: #1A1A1A;
@@ -22,6 +19,7 @@
             --success: #00C853;
             --locked: #CCCCCC;
             --border-light: #E0E0E0;
+            --track-color: #D0D0D0;
         }
 
         * {
@@ -48,37 +46,10 @@
         .daily-reward-widget {
             background: var(--bg-card);
             border-radius: 16px;
-            padding: 16px;
+            padding: 20px;
             margin-bottom: 20px;
             border: 2px solid var(--betclic-red);
-            box-shadow:
-                0 4px 20px rgba(227, 6, 19, 0.15),
-                0 8px 40px rgba(0, 0, 0, 0.08);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Animated background glow */
-        .daily-reward-widget::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(
-                from 0deg,
-                transparent 0deg,
-                rgba(227, 6, 19, 0.05) 60deg,
-                transparent 120deg
-            );
-            animation: rotate-glow 8s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes rotate-glow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            box-shadow: 0 4px 20px rgba(227, 6, 19, 0.15);
         }
 
         /* Header */
@@ -86,24 +57,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
-            position: relative;
-            z-index: 1;
+            margin-bottom: 20px;
         }
 
         .widget-title {
             display: flex;
             align-items: center;
             gap: 10px;
-        }
-
-        .widget-title h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--text-primary);
-            text-transform: uppercase;
-            letter-spacing: 2px;
         }
 
         .gift-icon {
@@ -115,7 +75,15 @@
             align-items: center;
             justify-content: center;
             font-size: 18px;
-            box-shadow: 0 4px 15px rgba(227, 6, 19, 0.3);
+        }
+
+        .widget-title h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .reward-badge {
@@ -123,218 +91,250 @@
             padding: 6px 12px;
             border-radius: 20px;
             font-family: 'Orbitron', sans-serif;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             color: #000;
             display: flex;
             align-items: center;
-            gap: 6px;
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
-            animation: pulse-gold 2s ease-in-out infinite;
+            gap: 5px;
+            box-shadow: 0 3px 10px rgba(255, 215, 0, 0.4);
         }
 
-        @keyframes pulse-gold {
-            0%, 100% { box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4); }
-            50% { box-shadow: 0 4px 25px rgba(255, 215, 0, 0.6); }
-        }
-
-        /* Days Progress Bar - 64px height */
-        .days-container {
-            display: flex;
-            gap: 6px;
-            height: 64px;
+        /* ========== ROCKET PROGRESS BAR ========== */
+        .rocket-progress-container {
             position: relative;
-            z-index: 1;
+            padding: 40px 10px 50px;
+            margin: 10px 0 20px;
         }
 
-        /* Day Box */
-        .day-box {
-            flex: 1;
-            background: var(--bg-elevated);
-            border-radius: 10px;
+        /* Track background */
+        .progress-track {
+            position: relative;
+            height: 8px;
+            background: var(--track-color);
+            border-radius: 4px;
+            margin: 0 15px;
+        }
+
+        /* Filled track */
+        .progress-track-filled {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: linear-gradient(90deg, var(--betclic-red) 0%, #FF5555 100%);
+            border-radius: 4px;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 10px rgba(227, 6, 19, 0.4);
+        }
+
+        /* Day markers container */
+        .day-markers {
+            position: absolute;
+            top: 36px;
+            left: 15px;
+            right: 15px;
+            height: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Individual day marker */
+        .day-marker {
+            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            padding: 6px 4px;
-            position: relative;
-            border: 2px solid var(--border-light);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
         }
 
-        .day-box:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .day-box .day-num {
-            font-family: 'Inter', sans-serif;
-            font-size: 9px;
-            font-weight: 700;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .day-box .day-icon {
-            width: 26px;
-            height: 26px;
+        .marker-dot {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--track-color);
+            border: 3px solid #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
-            border-radius: 50%;
+            font-size: 10px;
+            font-weight: bold;
+            color: #fff;
+            position: relative;
+            top: -7px;
+            z-index: 2;
+            transition: all 0.3s;
         }
 
-        .day-box .day-reward {
-            font-family: 'Orbitron', sans-serif;
+        .day-marker.claimed .marker-dot {
+            background: var(--success);
+            box-shadow: 0 2px 8px rgba(0, 200, 83, 0.4);
+        }
+
+        .day-marker.claimed .marker-dot::after {
+            content: '✓';
+            font-size: 11px;
+        }
+
+        .day-marker.claimable .marker-dot {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+            animation: pulse-marker 1.5s ease-in-out infinite;
+            width: 26px;
+            height: 26px;
+            top: -9px;
+        }
+
+        @keyframes pulse-marker {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 215, 0, 0.7); }
+            50% { transform: scale(1.15); box-shadow: 0 0 30px rgba(255, 215, 0, 0.9); }
+        }
+
+        .day-marker.unclaimed .marker-dot {
+            background: #BDBDBD;
+        }
+
+        .day-marker.unclaimed .marker-dot::after {
+            content: '✕';
             font-size: 10px;
+            color: #777;
+        }
+
+        .day-marker.locked .marker-dot {
+            background: #E0E0E0;
+            border-color: #F5F5F5;
+        }
+
+        .marker-label {
+            position: absolute;
+            top: 24px;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .day-marker.claimed .marker-label {
+            color: var(--success);
+        }
+
+        .day-marker.claimable .marker-label {
+            color: var(--betclic-red);
+            font-weight: 800;
+        }
+
+        .marker-reward {
+            position: absolute;
+            top: 38px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 9px;
             font-weight: 700;
             color: var(--betclic-red);
         }
 
-        /* State: Claimed */
-        .day-box.claimed {
-            background: linear-gradient(145deg, #E8F5E9 0%, #C8E6C9 100%);
-            border-color: var(--success);
-        }
-
-        .day-box.claimed .day-icon {
-            background: var(--success);
-            color: #fff;
-            box-shadow: 0 0 15px rgba(0, 200, 83, 0.4);
-        }
-
-        .day-box.claimed .day-icon::after {
-            content: '✓';
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .day-box.claimed .day-reward {
+        .day-marker.claimed .marker-reward {
             color: var(--success);
         }
 
-        /* State: Claimable */
-        .day-box.claimable {
-            background: linear-gradient(145deg, #FFEBEE 0%, #FFCDD2 100%);
-            border-color: var(--betclic-red);
-            box-shadow:
-                0 0 20px rgba(227, 6, 19, 0.3),
-                inset 0 0 20px rgba(227, 6, 19, 0.05);
-            animation: glow-red 2s ease-in-out infinite;
-            transform: scale(1.05);
-            z-index: 2;
+        .day-marker.locked .marker-reward,
+        .day-marker.unclaimed .marker-reward {
+            color: #AAAAAA;
         }
 
-        @keyframes glow-red {
-            0%, 100% {
-                box-shadow: 0 0 20px rgba(227, 6, 19, 0.3), inset 0 0 20px rgba(227, 6, 19, 0.05);
-            }
-            50% {
-                box-shadow: 0 0 35px rgba(227, 6, 19, 0.5), inset 0 0 30px rgba(227, 6, 19, 0.1);
-            }
-        }
-
-        .day-box.claimable .day-num {
-            color: var(--betclic-red);
-        }
-
-        .day-box.claimable .day-icon {
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-            animation: spin-slow 4s linear infinite;
-        }
-
-        @keyframes spin-slow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .day-box.claimable .day-reward {
-            color: var(--betclic-red);
-            font-weight: 900;
-        }
-
-        /* State: Unclaimed (missed) */
-        .day-box.unclaimed {
-            background: linear-gradient(145deg, #F5F5F5 0%, #E0E0E0 100%);
-            border-color: #BDBDBD;
-            opacity: 0.7;
-        }
-
-        .day-box.unclaimed .day-icon {
-            background: #BDBDBD;
-            color: #757575;
-        }
-
-        .day-box.unclaimed .day-icon::after {
-            content: '✕';
+        /* Day 7 special marker */
+        .day-marker.special .marker-dot {
+            width: 28px;
+            height: 28px;
+            top: -10px;
+            background: linear-gradient(135deg, var(--gold) 0%, #FF8C00 100%);
             font-size: 12px;
         }
 
-        .day-box.unclaimed .day-reward {
-            color: #9E9E9E;
-            text-decoration: line-through;
+        .day-marker.special.locked .marker-dot {
+            background: linear-gradient(135deg, #E0E0E0 0%, #CCCCCC 100%);
         }
 
-        /* State: Locked */
-        .day-box.locked {
-            background: var(--bg-elevated);
-            border-color: var(--border-light);
-            opacity: 0.5;
-        }
-
-        .day-box.locked .day-icon {
-            background: var(--locked);
-            color: #888;
-        }
-
-        .day-box.locked .day-icon::after {
-            content: '🔒';
-            font-size: 12px;
-        }
-
-        /* Day 7 Special */
-        .day-box.special {
-            flex: 1.3;
-            background: linear-gradient(145deg, #FFF8E1 0%, #FFECB3 100%);
-            border-color: var(--gold-dark);
-        }
-
-        .day-box.special.locked {
-            opacity: 0.5;
-        }
-
-        .day-box.special .day-reward {
-            font-size: 9px;
+        .day-marker.special .marker-reward {
             color: var(--gold-dark);
+            font-size: 10px;
         }
 
-        /* Claim Button */
+        /* ========== ROCKET ========== */
+        .rocket-wrapper {
+            position: absolute;
+            top: -5px;
+            left: 15px;
+            transition: left 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 10;
+        }
+
+        .rocket {
+            width: 55px;
+            height: 55px;
+            position: relative;
+            transform: rotate(90deg);
+            animation: rocket-hover 1.5s ease-in-out infinite;
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
+        }
+
+        @keyframes rocket-hover {
+            0%, 100% { transform: rotate(90deg) translateY(0); }
+            50% { transform: rotate(90deg) translateY(-4px); }
+        }
+
+        /* Rocket flame animation */
+        .flame {
+            position: absolute;
+            left: 50%;
+            bottom: -8px;
+            transform: translateX(-50%) rotate(-90deg);
+        }
+
+        .flame svg {
+            width: 25px;
+            height: 35px;
+        }
+
+        .flame-outer {
+            fill: #FFD700;
+            animation: flame-flicker 0.1s ease-in-out infinite alternate;
+        }
+
+        .flame-inner {
+            fill: #FF6B35;
+            animation: flame-flicker 0.15s ease-in-out infinite alternate;
+        }
+
+        .flame-core {
+            fill: #FFFFFF;
+            animation: flame-flicker 0.08s ease-in-out infinite alternate;
+        }
+
+        @keyframes flame-flicker {
+            0% { opacity: 0.85; transform: scaleY(1) scaleX(1); }
+            100% { opacity: 1; transform: scaleY(1.15) scaleX(0.95); }
+        }
+
+        /* ========== CLAIM BUTTON ========== */
         .claim-btn {
             display: block;
             width: 100%;
-            margin-top: 16px;
+            margin-top: 10px;
             padding: 14px;
             background: linear-gradient(135deg, var(--betclic-red) 0%, var(--betclic-red-dark) 100%);
             border: none;
             border-radius: 12px;
             font-family: 'Orbitron', sans-serif;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             color: #fff;
             text-transform: uppercase;
             letter-spacing: 2px;
             cursor: pointer;
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
-            box-shadow:
-                0 4px 0 var(--betclic-red-dark),
-                0 6px 20px rgba(227, 6, 19, 0.3);
+            box-shadow: 0 4px 0 var(--betclic-red-dark), 0 6px 20px rgba(227, 6, 19, 0.3);
             transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
         }
 
         .claim-btn::before {
@@ -352,359 +352,36 @@
             left: 100%;
         }
 
-        .claim-btn:hover {
-            transform: translateY(-2px);
-            box-shadow:
-                0 6px 0 var(--betclic-red-dark),
-                0 10px 30px rgba(227, 6, 19, 0.4);
-        }
-
         .claim-btn:active {
             transform: translateY(2px);
-            box-shadow:
-                0 2px 0 var(--betclic-red-dark),
-                0 4px 15px rgba(227, 6, 19, 0.3);
-        }
-
-        /* Progress indicator */
-        .progress-indicator {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid var(--border-light);
-            position: relative;
-            z-index: 1;
-        }
-
-        .progress-text {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        .progress-text span {
-            color: var(--betclic-red);
-            font-weight: 700;
-        }
-
-        .progress-bar-mini {
-            width: 120px;
-            height: 6px;
-            background: var(--bg-elevated);
-            border-radius: 3px;
-            overflow: hidden;
-            border: 1px solid var(--border-light);
-        }
-
-        .progress-bar-mini .fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--betclic-red) 0%, var(--betclic-red-light) 100%);
-            border-radius: 3px;
-            transition: width 0.5s ease-out;
-        }
-
-        /* ========== LEGEND ========== */
-        .legend {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            justify-content: center;
-            margin-top: 20px;
-            padding: 16px;
-            background: var(--bg-card);
-            border-radius: 12px;
-            border: 1px solid var(--border-light);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .legend-dot {
-            width: 20px;
-            height: 20px;
-            border-radius: 6px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 10px;
-            color: #fff;
-        }
-
-        .legend-dot.claimed { background: var(--success); }
-        .legend-dot.claimable { background: var(--betclic-red); box-shadow: 0 0 10px rgba(227, 6, 19, 0.4); }
-        .legend-dot.unclaimed { background: #BDBDBD; }
-        .legend-dot.locked { background: var(--locked); }
-
-        .legend-text {
-            color: var(--text-secondary);
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        /* ========== MODAL ========== */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            z-index: 100;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .modal-overlay.show {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal {
-            position: relative;
-            width: 100%;
-            max-width: 400px;
-            background: var(--bg-card);
-            border-radius: 24px;
-            padding: 24px;
-            border: 3px solid var(--betclic-red);
-            box-shadow:
-                0 0 50px rgba(227, 6, 19, 0.2),
-                0 20px 60px rgba(0, 0, 0, 0.15);
-            transform: scale(0.9);
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .modal-overlay.show .modal {
-            transform: scale(1);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: -12px;
-            right: -12px;
-            width: 36px;
-            height: 36px;
-            background: var(--betclic-red);
-            border: 3px solid var(--bg-card);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            font-size: 18px;
-            color: #fff;
-            box-shadow: 0 4px 15px rgba(227, 6, 19, 0.4);
-            transition: transform 0.2s;
-        }
-
-        .modal-close:hover {
-            transform: scale(1.1) rotate(90deg);
-        }
-
-        .modal-header {
-            text-align: center;
-            margin-bottom: 24px;
-        }
-
-        .modal-header h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 28px;
-            font-weight: 900;
-            color: var(--text-primary);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 8px;
-        }
-
-        .modal-header p {
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-
-        .modal-days {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .modal-day {
-            background: var(--bg-elevated);
-            border-radius: 12px;
-            padding: 12px 8px;
-            text-align: center;
-            border: 2px solid var(--border-light);
-            transition: all 0.3s;
-        }
-
-        .modal-day .md-num {
-            font-size: 10px;
-            color: var(--text-secondary);
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 6px;
-        }
-
-        .modal-day .md-icon {
-            width: 36px;
-            height: 36px;
-            margin: 0 auto 6px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-        }
-
-        .modal-day .md-reward {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--betclic-red);
-        }
-
-        .modal-day.claimed {
-            border-color: var(--success);
-            background: linear-gradient(145deg, #E8F5E9 0%, #C8E6C9 100%);
-        }
-
-        .modal-day.claimed .md-icon {
-            background: var(--success);
-        }
-
-        .modal-day.claimed .md-icon::after {
-            content: '✓';
-            color: #fff;
-            font-weight: bold;
-        }
-
-        .modal-day.claimed .md-reward {
-            color: var(--success);
-        }
-
-        .modal-day.claimable {
-            border-color: var(--betclic-red);
-            background: linear-gradient(145deg, #FFEBEE 0%, #FFCDD2 100%);
-            box-shadow: 0 0 25px rgba(227, 6, 19, 0.3);
-            transform: scale(1.05);
-        }
-
-        .modal-day.claimable .md-icon {
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-        }
-
-        .modal-day.unclaimed {
-            opacity: 0.6;
-            border-color: #BDBDBD;
-        }
-
-        .modal-day.unclaimed .md-icon {
-            background: #BDBDBD;
-        }
-
-        .modal-day.unclaimed .md-icon::after {
-            content: '✕';
-            color: #757575;
-        }
-
-        .modal-day.locked {
-            opacity: 0.5;
-        }
-
-        .modal-day.locked .md-icon {
-            background: var(--locked);
-        }
-
-        .modal-day.locked .md-icon::after {
-            content: '🔒';
-            font-size: 14px;
-        }
-
-        /* Day 7 special in modal */
-        .modal-day-7 {
-            grid-column: span 4;
-            background: linear-gradient(145deg, #FFF8E1 0%, #FFECB3 100%);
-            border: 2px solid var(--gold-dark);
-            border-radius: 12px;
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .modal-day-7.locked {
-            opacity: 0.5;
-        }
-
-        .modal-day-7 .day7-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .modal-day-7 .day7-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
-        }
-
-        .modal-day-7 .day7-text h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 14px;
-            color: var(--gold-dark);
-            text-transform: uppercase;
-        }
-
-        .modal-day-7 .day7-text p {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        .modal-day-7 .day7-reward {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 24px;
-            font-weight: 900;
-            color: var(--gold-dark);
-        }
-
-        .modal-claim-btn {
-            display: block;
-            width: 100%;
-            margin-top: 20px;
-            padding: 16px;
-            background: linear-gradient(135deg, var(--betclic-red) 0%, var(--betclic-red-dark) 100%);
-            border: none;
-            border-radius: 12px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 18px;
-            font-weight: 700;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            cursor: pointer;
-            box-shadow:
-                0 4px 0 var(--betclic-red-dark),
-                0 8px 25px rgba(227, 6, 19, 0.3);
-            transition: all 0.2s;
-        }
-
-        .modal-claim-btn:active {
-            transform: translateY(2px);
             box-shadow: 0 2px 0 var(--betclic-red-dark);
+        }
+
+        /* Progress text */
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .progress-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .progress-label span {
+            color: var(--betclic-red);
+            font-weight: 700;
+        }
+
+        .total-reward {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            color: var(--gold-dark);
+            font-weight: 700;
         }
 
         /* ========== REWARD POPUP ========== */
@@ -719,9 +396,7 @@
             text-align: center;
             z-index: 200;
             border: 3px solid var(--gold);
-            box-shadow:
-                0 0 60px rgba(255, 215, 0, 0.4),
-                0 20px 60px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 60px rgba(255, 215, 0, 0.4);
             opacity: 0;
             transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
@@ -735,38 +410,30 @@
             font-size: 64px;
             display: block;
             margin-bottom: 16px;
-            animation: bounce 0.6s ease-out;
-        }
-
-        @keyframes bounce {
-            0% { transform: scale(0); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
         }
 
         .reward-popup h3 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 24px;
+            font-size: 22px;
             color: var(--text-primary);
             margin-bottom: 8px;
-            text-transform: uppercase;
         }
 
         .reward-popup .reward-amount {
             font-family: 'Orbitron', sans-serif;
-            font-size: 36px;
+            font-size: 32px;
             font-weight: 900;
             color: var(--betclic-red);
         }
 
-        /* Confetti effect */
+        /* Confetti */
         .confetti {
             position: fixed;
             width: 10px;
             height: 10px;
-            background: var(--betclic-red);
             top: -10px;
             animation: confetti-fall 3s linear forwards;
+            border-radius: 2px;
         }
 
         @keyframes confetti-fall {
@@ -775,207 +442,202 @@
                 transform: rotate(720deg);
             }
         }
+
+        /* Responsive */
+        @media (max-width: 380px) {
+            .marker-label {
+                font-size: 9px;
+            }
+            .marker-reward {
+                font-size: 8px;
+            }
+            .rocket {
+                width: 48px;
+                height: 48px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-
-        <!-- Daily Reward Widget -->
-        <div class="daily-reward-widget" onclick="openModal()">
+        <div class="daily-reward-widget">
             <div class="widget-header">
                 <div class="widget-title">
                     <div class="gift-icon">🎁</div>
                     <h2>Daily Reward</h2>
                 </div>
                 <div class="reward-badge">
-                    <span>🎰</span>
-                    <span>20 FREE SPINS</span>
+                    🎰 20 FREE SPINS
                 </div>
             </div>
 
-            <!-- Days Progress Bar - 64px -->
-            <div class="days-container">
-                <div class="day-box claimed">
-                    <span class="day-num">Day 1</span>
-                    <div class="day-icon"></div>
-                    <span class="day-reward">+1</span>
-                </div>
-                <div class="day-box claimed">
-                    <span class="day-num">Day 2</span>
-                    <div class="day-icon"></div>
-                    <span class="day-reward">+2</span>
-                </div>
-                <div class="day-box unclaimed">
-                    <span class="day-num">Day 3</span>
-                    <div class="day-icon"></div>
-                    <span class="day-reward">+3</span>
-                </div>
-                <div class="day-box claimable">
-                    <span class="day-num">Day 4</span>
-                    <div class="day-icon">🪙</div>
-                    <span class="day-reward">+4</span>
-                </div>
-                <div class="day-box locked">
-                    <span class="day-num">Day 5</span>
-                    <div class="day-icon"></div>
-                    <span class="day-reward">+5</span>
-                </div>
-                <div class="day-box locked">
-                    <span class="day-num">Day 6</span>
-                    <div class="day-icon"></div>
-                    <span class="day-reward">+5</span>
-                </div>
-                <div class="day-box locked special">
-                    <span class="day-num">Day 7</span>
-                    <div class="day-icon">🎁</div>
-                    <span class="day-reward">+20 🎰</span>
-                </div>
-            </div>
+            <!-- Rocket Progress Bar -->
+            <div class="rocket-progress-container">
+                <!-- Rocket -->
+                <div class="rocket-wrapper" id="rocket">
+                    <div class="rocket">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Rocket body -->
+                            <ellipse cx="50" cy="50" rx="18" ry="35" fill="#E8E8E8"/>
+                            <ellipse cx="50" cy="50" rx="14" ry="30" fill="#D4D4D4"/>
 
-            <button class="claim-btn" onclick="event.stopPropagation(); claimReward()">
-                Claim Reward
-            </button>
+                            <!-- Rocket tip (red) -->
+                            <path d="M50 12 L38 38 L62 38 Z" fill="#E30613"/>
 
-            <div class="progress-indicator">
-                <span class="progress-text">Progression: <span>3/7</span> jours</span>
-                <div class="progress-bar-mini">
-                    <div class="fill" style="width: 43%;"></div>
-                </div>
-            </div>
-        </div>
+                            <!-- Window -->
+                            <circle cx="50" cy="42" r="9" fill="#4A4A8A"/>
+                            <circle cx="50" cy="42" r="7" fill="#6A6AAA"/>
+                            <ellipse cx="47" cy="40" rx="2.5" ry="3" fill="rgba(255,255,255,0.6)"/>
 
-        <!-- Legend -->
-        <div class="legend">
-            <div class="legend-item">
-                <div class="legend-dot claimed">✓</div>
-                <span class="legend-text">Réclamé</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-dot claimable"></div>
-                <span class="legend-text">À réclamer</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-dot unclaimed">✕</div>
-                <span class="legend-text">Manqué</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-dot locked">🔒</div>
-                <span class="legend-text">Verrouillé</span>
-            </div>
-        </div>
-    </div>
+                            <!-- Wings -->
+                            <path d="M30 72 L20 90 L42 78 Z" fill="#E30613"/>
+                            <path d="M70 72 L80 90 L58 78 Z" fill="#E30613"/>
 
-    <!-- Modal -->
-    <div class="modal-overlay" id="modal">
-        <div class="modal">
-            <div class="modal-close" onclick="closeModal()">✕</div>
+                            <!-- Center fin -->
+                            <path d="M43 82 L50 98 L57 82 Z" fill="#B8050F"/>
+                        </svg>
 
-            <div class="modal-header">
-                <h2>Daily Reward</h2>
-                <p>Connectez-vous chaque jour pour gagner des récompenses</p>
-            </div>
-
-            <div class="modal-days">
-                <div class="modal-day claimed">
-                    <div class="md-num">Day 1</div>
-                    <div class="md-icon"></div>
-                    <div class="md-reward">+1</div>
-                </div>
-                <div class="modal-day claimed">
-                    <div class="md-num">Day 2</div>
-                    <div class="md-icon"></div>
-                    <div class="md-reward">+2</div>
-                </div>
-                <div class="modal-day unclaimed">
-                    <div class="md-num">Day 3</div>
-                    <div class="md-icon"></div>
-                    <div class="md-reward">+3</div>
-                </div>
-                <div class="modal-day claimable">
-                    <div class="md-num">Day 4</div>
-                    <div class="md-icon">🪙</div>
-                    <div class="md-reward">+4</div>
-                </div>
-                <div class="modal-day locked">
-                    <div class="md-num">Day 5</div>
-                    <div class="md-icon"></div>
-                    <div class="md-reward">+5</div>
-                </div>
-                <div class="modal-day locked">
-                    <div class="md-num">Day 6</div>
-                    <div class="md-icon"></div>
-                    <div class="md-reward">+5</div>
-                </div>
-            </div>
-
-            <!-- Day 7 Special -->
-            <div class="modal-day-7 locked">
-                <div class="day7-left">
-                    <div class="day7-icon">🎁</div>
-                    <div class="day7-text">
-                        <h3>Day 7 - Jackpot</h3>
-                        <p>Bonus spécial de la semaine</p>
+                        <!-- Flame -->
+                        <div class="flame">
+                            <svg viewBox="0 0 40 60">
+                                <ellipse class="flame-outer" cx="20" cy="20" rx="15" ry="25"/>
+                                <ellipse class="flame-inner" cx="20" cy="18" rx="10" ry="18"/>
+                                <ellipse class="flame-core" cx="20" cy="15" rx="5" ry="10"/>
+                            </svg>
+                        </div>
                     </div>
                 </div>
-                <div class="day7-reward">+20 🎰</div>
+
+                <!-- Track -->
+                <div class="progress-track">
+                    <div class="progress-track-filled" id="trackFilled"></div>
+                </div>
+
+                <!-- Day Markers -->
+                <div class="day-markers">
+                    <div class="day-marker claimed" data-day="1">
+                        <div class="marker-dot"></div>
+                        <span class="marker-label">D1</span>
+                        <span class="marker-reward">+1</span>
+                    </div>
+                    <div class="day-marker claimed" data-day="2">
+                        <div class="marker-dot"></div>
+                        <span class="marker-label">D2</span>
+                        <span class="marker-reward">+2</span>
+                    </div>
+                    <div class="day-marker unclaimed" data-day="3">
+                        <div class="marker-dot"></div>
+                        <span class="marker-label">D3</span>
+                        <span class="marker-reward">+3</span>
+                    </div>
+                    <div class="day-marker claimable" data-day="4">
+                        <div class="marker-dot"></div>
+                        <span class="marker-label">D4</span>
+                        <span class="marker-reward">+4</span>
+                    </div>
+                    <div class="day-marker locked" data-day="5">
+                        <div class="marker-dot"></div>
+                        <span class="marker-label">D5</span>
+                        <span class="marker-reward">+5</span>
+                    </div>
+                    <div class="day-marker locked" data-day="6">
+                        <div class="marker-dot"></div>
+                        <span class="marker-label">D6</span>
+                        <span class="marker-reward">+5</span>
+                    </div>
+                    <div class="day-marker locked special" data-day="7">
+                        <div class="marker-dot">🎁</div>
+                        <span class="marker-label">D7</span>
+                        <span class="marker-reward">+20</span>
+                    </div>
+                </div>
             </div>
 
-            <button class="modal-claim-btn" onclick="claimReward()">Claim Now</button>
+            <button class="claim-btn" onclick="claimReward()">
+                🚀 Claim Reward
+            </button>
+
+            <div class="progress-text">
+                <span class="progress-label">Progression: <span id="progressCount">3/7</span> jours</span>
+                <span class="total-reward">🎰 Total: 20 Free Spins</span>
+            </div>
         </div>
     </div>
 
     <!-- Reward Popup -->
     <div class="reward-popup" id="popup">
-        <span class="big-icon">🎰</span>
+        <span class="big-icon">🚀</span>
         <h3>Félicitations!</h3>
         <div class="reward-amount">+4 Free Spins</div>
     </div>
 
     <script>
-        function openModal() {
-            document.getElementById('modal').classList.add('show');
+        // Current state
+        let currentDay = 4;
+        const totalDays = 7;
+
+        // Position rocket at current claimable day
+        function updateRocketPosition() {
+            const rocket = document.getElementById('rocket');
+            const container = document.querySelector('.day-markers');
+            const containerWidth = container.offsetWidth;
+
+            // Calculate position (0 to 100%)
+            const position = ((currentDay - 1) / (totalDays - 1)) * containerWidth;
+            rocket.style.left = (15 + position - 27) + 'px';
         }
 
-        function closeModal() {
-            document.getElementById('modal').classList.remove('show');
+        // Update track fill
+        function updateTrackFill() {
+            const trackFilled = document.getElementById('trackFilled');
+            const fillPercentage = ((currentDay - 1) / (totalDays - 1)) * 100;
+            trackFilled.style.width = fillPercentage + '%';
         }
 
+        // Update progress count
+        function updateProgressCount() {
+            const claimed = document.querySelectorAll('.day-marker.claimed').length;
+            document.getElementById('progressCount').textContent = claimed + '/' + totalDays;
+        }
+
+        // Claim reward
         function claimReward() {
-            closeModal();
+            const claimableMarker = document.querySelector('.day-marker.claimable');
+            if (!claimableMarker) return;
 
             // Show popup
             const popup = document.getElementById('popup');
             popup.classList.add('show');
-
-            // Create confetti
             createConfetti();
 
-            // Update states
+            // Update marker to claimed
             setTimeout(() => {
-                document.querySelectorAll('.day-box.claimable, .modal-day.claimable').forEach(el => {
-                    el.classList.remove('claimable');
-                    el.classList.add('claimed');
-                    const icon = el.querySelector('.day-icon, .md-icon');
-                    if (icon) icon.textContent = '';
-                });
+                claimableMarker.classList.remove('claimable');
+                claimableMarker.classList.add('claimed');
 
-                const nextLocked = document.querySelector('.day-box.locked');
+                // Find next locked and make claimable
+                const nextLocked = document.querySelector('.day-marker.locked');
                 if (nextLocked) {
                     nextLocked.classList.remove('locked');
                     nextLocked.classList.add('claimable');
-                    const icon = nextLocked.querySelector('.day-icon');
-                    if (icon) icon.textContent = '🪙';
+                    currentDay++;
+                    updateRocketPosition();
+                    updateTrackFill();
                 }
+
+                updateProgressCount();
             }, 500);
 
+            // Hide popup
             setTimeout(() => {
                 popup.classList.remove('show');
-            }, 3000);
+            }, 2500);
         }
 
+        // Create confetti
         function createConfetti() {
-            const colors = ['#E30613', '#FFD700', '#00C853', '#FF6B6B'];
-            for (let i = 0; i < 50; i++) {
+            const colors = ['#E30613', '#FFD700', '#00C853', '#FF6B6B', '#4CAF50'];
+            for (let i = 0; i < 40; i++) {
                 setTimeout(() => {
                     const confetti = document.createElement('div');
                     confetti.className = 'confetti';
@@ -990,9 +652,14 @@
             }
         }
 
-        // Close modal on overlay click
-        document.getElementById('modal').addEventListener('click', function(e) {
-            if (e.target === this) closeModal();
+        // Initialize
+        window.addEventListener('load', () => {
+            updateRocketPosition();
+            updateTrackFill();
+        });
+
+        window.addEventListener('resize', () => {
+            updateRocketPosition();
         });
     </script>
 </body>
