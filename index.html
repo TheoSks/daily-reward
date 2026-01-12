@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Banner Welcome Offer Fix</title>
+<title>Banner Welcome Offer Responsive</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -29,11 +29,12 @@
     font-family: 'Montserrat', sans-serif;
   }
 
-  /* --- CONTENEUR 369x80 --- */
+  /* --- CONTENEUR RESPONSIVE --- */
   .banner-container {
     position: relative;
-    width: 369px;  /* Largeur Fixe */
-    height: 80px;  /* Hauteur Fixe */
+    width: 100%;      /* Prend toute la largeur disponible */
+    max-width: 600px; /* Limite la largeur sur les grands écrans */
+    min-height: 80px; /* Hauteur minimale pour garder le style */
     background: radial-gradient(circle at left, var(--bg-light) 0%, var(--bg-dark) 100%);
     border-radius: 12px;
     overflow: hidden;
@@ -41,9 +42,10 @@
     display: flex; /* Layout Horizontal */
     align-items: center;
     justify-content: space-between;
-    padding: 0 10px;
+    padding: 10px; /* Padding un peu plus généreux */
     box-sizing: border-box;
     border: 1px solid rgba(255,255,255,0.1);
+    margin: auto; /* Centre la bannière */
   }
 
   /* Décoration de fond */
@@ -51,44 +53,38 @@
   
   /* --- SECTION GAUCHE : TITRE --- */
   .left-section {
-    flex: 0 0 35%; /* Prend 35% de la largeur */
+    flex: 0 0 auto; /* Ne grandit pas, ne rétrécit pas */
     display: flex;
     flex-direction: column;
     justify-content: center;
     z-index: 2;
-    padding-right: 10px;
+    padding-right: 15px;
     border-right: 1px solid rgba(255,255,255,0.1);
   }
 
   .title {
-    font-size: 14px;
-    line-height: 1;
+    font-size: 16px; /* Un peu plus grand */
+    line-height: 1.1;
     font-weight: 900;
     text-transform: uppercase;
     background: linear-gradient(to right, #ffffff, #ffd700);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 4px;
-  }
-  
-  .subtitle {
-    font-size: 10px;
-    color: #cbd5e1;
-    font-weight: 700;
+    margin-bottom: 6px;
   }
 
   .claim-badge {
-    margin-top: 5px;
     background: var(--color-yellow);
     color: #000;
-    font-size: 9px;
-    padding: 2px 8px;
-    border-radius: 10px;
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 12px;
     font-weight: 800;
     display: inline-block;
     text-align: center;
     box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
     cursor: pointer;
+    align-self: flex-start; /* Aligné à gauche */
   }
 
   /* --- SECTION DROITE : LISTE DÉFILANTE --- */
@@ -102,22 +98,23 @@
     /* Cache la scrollbar */
     scrollbar-width: none; 
     -ms-overflow-style: none;
-    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    padding-left: 10px; /* Espace avant le premier élément */
   }
   .scroll-container::-webkit-scrollbar { display: none; }
 
   .days-track {
     display: flex;
-    gap: 6px;
-    padding: 0 10px; /* Espace pour le scroll */
+    gap: 8px; /* Espace un peu plus grand entre les jours */
+    padding-right: 10px; /* Espace après le dernier élément pour le scroll */
   }
 
   /* --- ITEMS JOURS --- */
   .day-item {
-    min-width: 45px;
-    height: 60px;
-    border-radius: 6px;
+    min-width: 50px; /* Un peu plus large */
+    height: 65px;  /* Un peu plus haut */
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -125,12 +122,13 @@
     position: relative;
     background: #2a2a40;
     border: 1px solid #4a4a60;
-    padding: 2px 0;
+    padding: 3px 0;
+    flex-shrink: 0; /* Empêche les éléments de s'écraser */
   }
 
   /* Header du jour (20+) */
   .day-val {
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 900;
     color: white;
     z-index: 2;
@@ -139,21 +137,25 @@
 
   /* Icone Cadeau */
   .icon-box {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     margin-top: -2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
+  .icon-box svg { width: 100%; height: 100%; }
   
   /* Footer du jour (Day X) */
   .day-label {
-    font-size: 7px;
+    font-size: 8px;
     color: #aaa;
     text-transform: uppercase;
     background: rgba(0,0,0,0.3);
     width: 100%;
     text-align: center;
-    border-radius: 0 0 5px 5px;
-    padding: 2px 0;
+    border-radius: 0 0 7px 7px;
+    padding: 3px 0;
   }
 
   /* --- ETATS --- */
@@ -165,12 +167,13 @@
   
   /* Actif (Highlight) */
   .day-item.active {
-    min-width: 50px; /* Un peu plus large */
-    height: 64px; /* Un peu plus grand */
+    min-width: 55px; /* Un peu plus large */
+    height: 70px; /* Un peu plus grand */
     background: linear-gradient(180deg, var(--color-yellow), var(--color-yellow-dark));
     border: 1px solid white;
     box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
     z-index: 10;
+    margin-top: -2.5px; /* Pour centrer verticalement l'élément plus grand */
   }
   .day-item.active .day-val { color: #5c3a00; }
   .day-item.active .day-label { color: #5c3a00; background: rgba(255,255,255,0.3); }
@@ -183,8 +186,8 @@
 <body>
 
 <div class="banner-container">
-  <div class="bg-decor" style="top: -10px; left: 50px; font-size: 10px;">✨</div>
-  <div class="bg-decor" style="bottom: 5px; right: 20px; font-size: 8px;">🌍</div>
+  <div class="bg-decor" style="top: 5px; left: 10px; font-size: 12px;">✨</div>
+  <div class="bg-decor" style="bottom: 5px; right: 20px; font-size: 10px;">🌍</div>
 
   <div class="left-section">
     <div class="title">WELCOME<br>OFFER</div>
@@ -212,7 +215,7 @@
 
       <div class="day-item active">
         <div class="day-val">20+</div>
-        <div class="icon-box" style="transform: scale(1.2);"><svg viewBox="0 0 512 512"><path fill="#fff" d="M400 160H112C94 160 80 174 80 192V464C80 481 94 496 112 496H400C417 496 432 481 432 464V192C432 174 417 160 400 160Z"/><path fill="#ef5350" d="M232 160V496H280V160H232Z"/><path fill="#ffca28" d="M448 112H64C46 112 32 126 32 144V176C32 193 46 208 64 208H448C465 208 480 193 480 176V144C480 126 465 112 448 112Z"/></svg></div>
+        <div class="icon-box" style="transform: scale(1.1);"><svg viewBox="0 0 512 512"><path fill="#fff" d="M400 160H112C94 160 80 174 80 192V464C80 481 94 496 112 496H400C417 496 432 481 432 464V192C432 174 417 160 400 160Z"/><path fill="#ef5350" d="M232 160V496H280V160H232Z"/><path fill="#ffca28" d="M448 112H64C46 112 32 126 32 144V176C32 193 46 208 64 208H448C465 208 480 193 480 176V144C480 126 465 112 448 112Z"/></svg></div>
         <div class="day-label">Day 4</div>
       </div>
 
