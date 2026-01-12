@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Banner Welcome Offer</title>
+<title>Banner Welcome Offer Fix</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -15,366 +15,225 @@
     --color-green-dark: #1e7e34;
     --color-yellow: #ffc107;
     --color-yellow-dark: #d39e00;
-    --color-grey: #6c757d;
-    --color-grey-dark: #495057;
-    --color-blue-btn: #007bff;
-    --color-blue-btn-dark: #0056b3;
+    --color-grey: #495057;
   }
 
   body {
     margin: 0;
     padding: 20px;
+    background-color: #000;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #121212;
     font-family: 'Montserrat', sans-serif;
   }
 
-  /* Conteneur Principal de la Bannière */
+  /* --- CONTENEUR 369x80 --- */
   .banner-container {
     position: relative;
-    width: 100%;
-    max-width: 900px;
-    /* Aspect ratio w:369 h:80 approx */
-    aspect-ratio: 369 / 80;
-    background: radial-gradient(ellipse at bottom, var(--bg-light) 0%, var(--bg-dark) 100%);
-    border-radius: 15px;
+    width: 369px;  /* Largeur Fixe */
+    height: 80px;  /* Hauteur Fixe */
+    background: radial-gradient(circle at left, var(--bg-light) 0%, var(--bg-dark) 100%);
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    display: flex;
-    flex-direction: column;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    display: flex; /* Layout Horizontal */
     align-items: center;
-    padding: 3% 5%;
+    justify-content: space-between;
+    padding: 0 10px;
     box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,0.1);
   }
 
-  /* Éléments de décor d'arrière-plan (Étoiles, Planètes, Fusées) */
-  .bg-decor { position: absolute; pointer-events: none; }
-  .star { width: 2px; height: 2px; background: white; border-radius: 50%; box-shadow: 0 0 5px white; }
-  .planet { opacity: 0.7; }
-  .rocket { opacity: 0.9; }
+  /* Décoration de fond */
+  .bg-decor { position: absolute; pointer-events: none; opacity: 0.5; }
+  
+  /* --- SECTION GAUCHE : TITRE --- */
+  .left-section {
+    flex: 0 0 35%; /* Prend 35% de la largeur */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 2;
+    padding-right: 10px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
 
-  /* Titre */
   .title {
-    font-size: 3.5vw;
+    font-size: 14px;
+    line-height: 1;
     font-weight: 900;
     text-transform: uppercase;
-    margin: 0 0 2% 0;
-    background: linear-gradient(to bottom, #ffffff 0%, #ffd700 100%);
+    background: linear-gradient(to right, #ffffff, #ffd700);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
-    letter-spacing: 1px;
-  }
-
-  /* Grille de Progression */
-  .progress-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 0.5%;
-    width: 100%;
-    margin-bottom: 2%;
-  }
-
-  /* Élément Jour Individuel */
-  .day-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-  }
-
-  /* Boîte de Récompense (Partie Supérieure) */
-  .reward-box {
-    width: 100%;
-    aspect-ratio: 1;
-    border-radius: 10px 10px 0 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 10%;
-    box-sizing: border-box;
-    position: relative;
-    border: 2px solid transparent;
-    background: linear-gradient(to bottom, #3a3a3a, #2a2a2a); /* Default grey */
-    box-shadow: inset 0 -5px 10px rgba(0,0,0,0.3);
-  }
-
-  .reward-amount {
-    font-size: 1.8vw;
-    font-weight: 900;
-    color: var(--text-white);
-    margin-bottom: 5%;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
-    z-index: 2;
-  }
-
-  .reward-image-container {
-    position: relative;
-    width: 60%;
-    height: 60%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-bottom: 4px;
   }
   
-  .reward-image-container svg {
-    width: 100%;
-    height: auto;
-    filter: drop-shadow(0 4px 4px rgba(0,0,0,0.4));
-  }
-  
-  /* Coins qui flottent */
-  .floating-coins {
-    position: absolute;
-    top: -20%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 5%;
-    opacity: 0; /* Caché par défaut */
-  }
-  .floating-coins svg { width: 25%; height: auto; }
-
-  /* Barre de Segment (Partie Inférieure avec effet flèche) */
-  .progress-segment {
-    width: 110%; /* Plus large pour l'emboîtement */
-    padding: 8% 0;
-    text-align: center;
-    font-size: 1.2vw;
+  .subtitle {
+    font-size: 10px;
+    color: #cbd5e1;
     font-weight: 700;
-    color: var(--text-white);
-    background-color: var(--color-grey-dark);
-    /* Création de la forme de flèche */
-    clip-path: polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%, 10% 50%);
-    margin-left: -5%; /* Décalage pour l'emboîtement */
-    position: relative;
-    z-index: 1;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
   }
 
-  /* --- États Spécifiques --- */
+  .claim-badge {
+    margin-top: 5px;
+    background: var(--color-yellow);
+    color: #000;
+    font-size: 9px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 800;
+    display: inline-block;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+    cursor: pointer;
+  }
 
-  /* État: Complété (Vert) */
-  .day-item.completed .reward-box {
-    background: linear-gradient(to bottom, #4ade80, var(--color-green));
+  /* --- SECTION DROITE : LISTE DÉFILANTE --- */
+  .scroll-container {
+    flex: 1; /* Prend le reste de la place */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    overflow-x: auto; /* Permet le scroll horizontal */
+    overflow-y: hidden;
+    /* Cache la scrollbar */
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  }
+  .scroll-container::-webkit-scrollbar { display: none; }
+
+  .days-track {
+    display: flex;
+    gap: 6px;
+    padding: 0 10px; /* Espace pour le scroll */
+  }
+
+  /* --- ITEMS JOURS --- */
+  .day-item {
+    min-width: 45px;
+    height: 60px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    background: #2a2a40;
+    border: 1px solid #4a4a60;
+    padding: 2px 0;
+  }
+
+  /* Header du jour (20+) */
+  .day-val {
+    font-size: 10px;
+    font-weight: 900;
+    color: white;
+    z-index: 2;
+    text-shadow: 0 1px 2px black;
+  }
+
+  /* Icone Cadeau */
+  .icon-box {
+    width: 24px;
+    height: 24px;
+    margin-top: -2px;
+  }
+  
+  /* Footer du jour (Day X) */
+  .day-label {
+    font-size: 7px;
+    color: #aaa;
+    text-transform: uppercase;
+    background: rgba(0,0,0,0.3);
+    width: 100%;
+    text-align: center;
+    border-radius: 0 0 5px 5px;
+    padding: 2px 0;
+  }
+
+  /* --- ETATS --- */
+  /* Validé */
+  .day-item.completed {
+    background: linear-gradient(180deg, var(--color-green), var(--color-green-dark));
     border-color: #86efac;
   }
-  .day-item.completed .progress-segment {
-    background-color: var(--color-green-dark);
-    background: linear-gradient(to right, var(--color-green-dark), var(--color-green));
+  
+  /* Actif (Highlight) */
+  .day-item.active {
+    min-width: 50px; /* Un peu plus large */
+    height: 64px; /* Un peu plus grand */
+    background: linear-gradient(180deg, var(--color-yellow), var(--color-yellow-dark));
+    border: 1px solid white;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    z-index: 10;
   }
-  .day-item.completed .floating-coins { opacity: 1; }
+  .day-item.active .day-val { color: #5c3a00; }
+  .day-item.active .day-label { color: #5c3a00; background: rgba(255,255,255,0.3); }
 
-  /* État: Actif (Jaune/Or) */
-  .day-item.active { z-index: 10; } /* Au-dessus des autres */
-  .day-item.active .reward-box {
-    background: linear-gradient(to bottom, #fde047, var(--color-yellow));
-    border-color: #fef08a;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.6), inset 0 -5px 10px rgba(0,0,0,0.2);
-    transform: scale(1.1) translateY(-5%);
-    border-radius: 10px;
-  }
-  .day-item.active .reward-amount { color: #713f12; }
-  .day-item.active .progress-segment {
-    background-color: var(--color-yellow-dark);
-    background: linear-gradient(to right, var(--color-yellow-dark), var(--color-yellow));
-    color: #713f12;
-  }
-  .day-item.active .floating-coins { opacity: 1; animation: float 2s ease-in-out infinite; }
-  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+  /* Verrouillé */
+  .day-item.locked { opacity: 0.6; }
 
-  .status-text {
-    position: absolute;
-    bottom: -35%;
-    width: 150%;
-    text-align: center;
-    font-size: 1vw;
-    font-weight: 900;
-    color: var(--text-gold);
-    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-    white-space: nowrap;
-  }
-
-  /* État: Verrouillé (Gris) */
-  .day-item.locked .reward-box {
-    background: linear-gradient(to bottom, #4b5563, #374151);
-    border-color: #6b7280;
-  }
-  .day-item.locked .reward-amount { color: #d1d5db; }
-  .day-item.locked .reward-image-container,
-  .day-item.locked .floating-coins {
-    filter: grayscale(1) brightness(0.7);
-    opacity: 0.5;
-  }
-  /* Icône de cadenas par-dessus */
-  .day-item.locked .reward-image-container::after {
-    content: '';
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 40%; height: 40%;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: center;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
-  }
-
-  /* Bouton d'Action */
-  .claim-button {
-    padding: 1.5% 6%;
-    font-size: 2vw;
-    font-weight: 900;
-    color: var(--text-white);
-    text-transform: uppercase;
-    background: linear-gradient(to bottom, #4dabff, var(--color-blue-btn));
-    border: 2px solid #80bdff;
-    border-radius: 30px;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4), inset 0 2px 5px rgba(255,255,255,0.3);
-    transition: all 0.2s ease;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-    align-self: flex-end; /* Positionner à droite */
-    margin-top: auto;
-  }
-  .claim-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.6), inset 0 2px 5px rgba(255,255,255,0.3);
-    background: linear-gradient(to bottom, #66bfff, var(--color-blue-btn-dark));
-  }
-  .claim-button:active {
-    transform: translateY(1px);
-    box-shadow: 0 2px 10px rgba(0, 123, 255, 0.4);
-  }
-
-  /* Requêtes Média pour la Responsivité */
-  @media (max-width: 768px) {
-    .banner-container { aspect-ratio: auto; padding: 5%; }
-    .title { font-size: 24px; }
-    .progress-grid {
-        gap: 2px;
-        /* Permettre le défilement horizontal sur petit écran */
-        overflow-x: auto;
-        padding-bottom: 10px;
-        /* Masquer la barre de défilement */
-        -ms-overflow-style: none; 
-        scrollbar-width: none; 
-    }
-    .progress-grid::-webkit-scrollbar { display: none; }
-    .day-item { min-width: 80px; /* Largeur min pour lisibilité */ }
-    .reward-amount { font-size: 14px; }
-    .progress-segment { font-size: 10px; }
-    .status-text { font-size: 10px; bottom: -25px; }
-    .claim-button { font-size: 16px; padding: 10px 30px; align-self: center; margin-top: 20px; }
-  }
 </style>
 </head>
 <body>
 
 <div class="banner-container">
-  <div class="bg-decor" style="top: 10%; left: 5%;"><svg class="rocket" width="40" height="40" viewBox="0 0 24 24"><path fill="#ff5722" d="M12,2.5C10.5,2.5 9,3 8,4C6.5,5.5 6,7.5 6,9.5C6,12 7.5,14.5 9,16.5L12,22L15,16.5C16.5,14.5 18,12 18,9.5C18,7.5 17.5,5.5 16,4C15,3 13.5,2.5 12,2.5M12,11.5A2,2 0 0,1 10,9.5A2,2 0 0,1 12,7.5A2,2 0 0,1 14,9.5A2,2 0 0,1 12,11.5Z"/></svg></div>
-  <div class="bg-decor" style="top: 15%; right: 10%;"><svg class="planet" width="60" height="60" viewBox="0 0 24 24"><path fill="#4dd0e1" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.5,6.5C17.5,7.5 18,8.5 18,10C18,11.5 17,13 15.5,14.5C14,16 12.5,17 11,17C9.5,17 8.5,16.5 7.5,15.5C6.5,14.5 6,13.5 6,12C6,10.5 7,9 8.5,7.5C10,6 11.5,5 13,5C14.5,5 15.5,5.5 16.5,6.5Z"/></svg></div>
-  <div class="bg-decor" style="bottom: 10%; left: -5%; transform: rotate(45deg);"><svg class="planet" width="80" height="80" viewBox="0 0 24 24"><circle fill="#007bff" cx="12" cy="12" r="10"/></svg></div>
-  <div class="bg-decor star" style="top: 20%; left: 30%;"></div>
-  <div class="bg-decor star" style="top: 50%; left: 70%;"></div>
-  <div class="bg-decor star" style="top: 80%; left: 40%;"></div>
+  <div class="bg-decor" style="top: -10px; left: 50px; font-size: 10px;">✨</div>
+  <div class="bg-decor" style="bottom: 5px; right: 20px; font-size: 8px;">🌍</div>
 
-  <h1 class="title">WELCOME OFFER</h1>
-
-  <div class="progress-grid">
-    <div class="day-item completed">
-      <div class="reward-box">
-        <div class="floating-coins">
-             <svg viewBox="0 0 24 24"><circle fill="#ffd700" cx="12" cy="12" r="10"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#b8860b" font-size="14">$</text></svg>
-             <svg viewBox="0 0 24 24" style="transform: translateY(-10px);"><circle fill="#ffd700" cx="12" cy="12" r="10"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#b8860b" font-size="14">$</text></svg>
-        </div>
-        <span class="reward-amount">20+</span>
-        <div class="reward-image-container">
-          <svg viewBox="0 0 512 512"><path fill="#d32f2f" d="M400 112H112C94.3 112 80 126.3 80 144V464C80 481.7 94.3 496 112 496H400C417.7 496 432 481.7 432 464V144C432 126.3 417.7 112 400 112Z"/><path fill="#f44336" d="M232 112V496H280V112H232Z"/><path fill="#ffeb3b" d="M400 112H112C94.3 112 80 126.3 80 144V176H432V144C432 126.3 417.7 112 400 112Z"/><path fill="#fbc02d" d="M232 112H280V176H232z"/><path fill="#ffeb3b" d="M256 112C273.7 112 288 97.7 288 80C288 62.3 273.7 48 256 48C238.3 48 224 62.3 224 80C224 97.7 238.3 112 256 112Z"/><path fill="#fbc02d" d="M256 112C264.8 112 272 104.8 272 96C272 87.2 264.8 80 256 80C247.2 80 240 87.2 240 96C240 104.8 247.2 112 256 112Z"/><path fill="#ffeb3b" d="M320 112C337.7 112 352 97.7 352 80C352 62.3 337.7 48 320 48C302.3 48 288 62.3 288 80C288 97.7 302.3 112 320 112Z"/><path fill="#fbc02d" d="M320 112C328.8 112 336 104.8 336 96C336 87.2 328.8 80 320 80C311.2 80 304 87.2 304 96C304 104.8 311.2 112 320 112Z"/><path fill="#ffeb3b" d="M192 112C209.7 112 224 97.7 224 80C224 62.3 209.7 48 192 48C174.3 48 160 62.3 160 80C160 97.7 174.3 112 192 112Z"/><path fill="#fbc02d" d="M192 112C200.8 112 208 104.8 208 96C208 87.2 200.8 80 192 80C183.2 80 176 87.2 176 96C176 104.8 183.2 112 192 112Z"/></svg>
-        </div>
-      </div>
-      <div class="progress-segment">DAY 1</div>
-    </div>
-
-    <div class="day-item completed">
-      <div class="reward-box">
-        <div class="floating-coins">
-             <svg viewBox="0 0 24 24"><circle fill="#ffd700" cx="12" cy="12" r="10"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#b8860b" font-size="14">$</text></svg>
-             <svg viewBox="0 0 24 24" style="transform: translateY(-10px);"><circle fill="#ffd700" cx="12" cy="12" r="10"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#b8860b" font-size="14">$</text></svg>
-        </div>
-        <span class="reward-amount">20+</span>
-        <div class="reward-image-container">
-          <svg viewBox="0 0 512 512"><path fill="#d32f2f" d="M400 112H112C94.3 112 80 126.3 80 144V464C80 481.7 94.3 496 112 496H400C417.7 496 432 481.7 432 464V144C432 126.3 417.7 112 400 112Z"/><path fill="#f44336" d="M232 112V496H280V112H232Z"/><path fill="#ffeb3b" d="M400 112H112C94.3 112 80 126.3 80 144V176H432V144C432 126.3 417.7 112 400 112Z"/><path fill="#fbc02d" d="M232 112H280V176H232z"/></svg>
-        </div>
-      </div>
-      <div class="progress-segment">DAY 2</div>
-    </div>
-
-    <div class="day-item completed">
-      <div class="reward-box">
-        <div class="floating-coins">
-             <svg viewBox="0 0 24 24"><circle fill="#ffd700" cx="12" cy="12" r="10"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#b8860b" font-size="14">$</text></svg>
-             <svg viewBox="0 0 24 24" style="transform: translateY(-10px);"><circle fill="#ffd700" cx="12" cy="12" r="10"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#b8860b" font-size="14">$</text></svg>
-        </div>
-        <span class="reward-amount">20+</span>
-        <div class="reward-image-container">
-          <svg viewBox="0 0 512 512"><path fill="#d32f2f" d="M400 112H112C94.3 112 80 126.3 80 144V464C80 481.7 94.3 496 112 496H400C417.7 496 432 481.7 432 464V144C432 126.3 417.7 112 400 112Z"/><path fill="#f44336" d="M232 112V496H280V112H232Z"/><path fill="#ffeb3b" d="M400 112H112C94.3 112 80 126.3 80 144V176H432V144C432 126.3 417.7 112 400 112Z"/><path fill="#fbc02d" d="M232 112H280V176H232z"/></svg>
-        </div>
-      </div>
-      <div class="progress-segment">DAY 3</div>
-    </div>
-
-    <div class="day-item active">
-      <div class="reward-box">
-        <div class="floating-coins">
-             <svg viewBox="0 0 24 24"><circle fill="#ffd700" cx="12" cy="12" r="10"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#b8860b" font-size="14">$</text></svg>
-             <svg viewBox="0 0 24 24" style="transform: translateY(-15px) scale(1.2);"><circle fill="#ffd700" cx="12" cy="12" r="10"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#b8860b" font-size="14">$</text></svg>
-             <svg viewBox="0 0 24 24"><circle fill="#ffd700" cx="12" cy="12" r="10"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#b8860b" font-size="14">$</text></svg>
-        </div>
-        <span class="reward-amount">20+</span>
-        <div class="reward-image-container" style="transform: scale(1.2);">
-           <svg viewBox="0 0 512 512"><path fill="#d32f2f" d="M400 160H112C94.3 160 80 174.3 80 192V464C80 481.7 94.3 496 112 496H400C417.7 496 432 481.7 432 464V192C432 174.3 417.7 160 400 160Z"/><path fill="#f44336" d="M232 160V496H280V160H232Z"/><path fill="#ffeb3b" d="M448 112H64C46.3 112 32 126.3 32 144V176C32 193.7 46.3 208 64 208H448C465.7 208 480 193.7 480 176V144C480 126.3 465.7 112 448 112Z"/><path fill="#fbc02d" d="M232 112H280V208H232z"/><path fill="#ffeb3b" d="M256 112C273.7 112 288 97.7 288 80C288 62.3 273.7 48 256 48C238.3 48 224 62.3 224 80C224 97.7 238.3 112 256 112Z"/><path fill="#fbc02d" d="M256 112C264.8 112 272 104.8 272 96C272 87.2 264.8 80 256 80C247.2 80 240 87.2 240 96C240 104.8 247.2 112 256 112Z"/><path fill="#ffeb3b" d="M320 112C337.7 112 352 97.7 352 80C352 62.3 337.7 48 320 48C302.3 48 288 62.3 288 80C288 97.7 302.3 112 320 112Z"/><path fill="#fbc02d" d="M320 112C328.8 112 336 104.8 336 96C336 87.2 328.8 80 320 80C311.2 80 304 87.2 304 96C304 104.8 311.2 112 320 112Z"/><path fill="#ffeb3b" d="M192 112C209.7 112 224 97.7 224 80C224 62.3 209.7 48 192 48C174.3 48 160 62.3 160 80C160 97.7 174.3 112 192 112Z"/><path fill="#fbc02d" d="M192 112C200.8 112 208 104.8 208 96C208 87.2 200.8 80 192 80C183.2 80 176 87.2 176 96C176 104.8 183.2 112 192 112Z"/></svg>
-        </div>
-      </div>
-      <div class="progress-segment">DAY 4</div>
-      <div class="status-text">READY TO CLAIM</div>
-    </div>
-
-    <div class="day-item locked">
-      <div class="reward-box">
-        <span class="reward-amount">20+</span>
-        <div class="reward-image-container">
-          <svg viewBox="0 0 512 512"><path fill="#9e9e9e" d="M400 112H112C94.3 112 80 126.3 80 144V464C80 481.7 94.3 496 112 496H400C417.7 496 432 481.7 432 464V144C432 126.3 417.7 112 400 112Z"/><path fill="#bdbdbd" d="M232 112V496H280V112H232Z"/><path fill="#e0e0e0" d="M400 112H112C94.3 112 80 126.3 80 144V176H432V144C432 126.3 417.7 112 400 112Z"/><path fill="#bdbdbd" d="M232 112H280V176H232z"/></svg>
-        </div>
-      </div>
-      <div class="progress-segment">DAY 5</div>
-    </div>
-
-    <div class="day-item locked">
-      <div class="reward-box">
-        <span class="reward-amount">20+</span>
-        <div class="reward-image-container">
-          <svg viewBox="0 0 512 512"><path fill="#9e9e9e" d="M400 112H112C94.3 112 80 126.3 80 144V464C80 481.7 94.3 496 112 496H400C417.7 496 432 481.7 432 464V144C432 126.3 417.7 112 400 112Z"/><path fill="#bdbdbd" d="M232 112V496H280V112H232Z"/><path fill="#e0e0e0" d="M400 112H112C94.3 112 80 126.3 80 144V176H432V144C432 126.3 417.7 112 400 112Z"/><path fill="#bdbdbd" d="M232 112H280V176H232z"/></svg>
-        </div>
-      </div>
-      <div class="progress-segment">DAY 6</div>
-    </div>
-
-    <div class="day-item locked">
-      <div class="reward-box">
-        <span class="reward-amount">20+</span>
-        <div class="reward-image-container">
-          <svg viewBox="0 0 512 512"><path fill="#9e9e9e" d="M400 112H112C94.3 112 80 126.3 80 144V464C80 481.7 94.3 496 112 496H400C417.7 496 432 481.7 432 464V144C432 126.3 417.7 112 400 112Z"/><path fill="#bdbdbd" d="M232 112V496H280V112H232Z"/><path fill="#e0e0e0" d="M400 112H112C94.3 112 80 126.3 80 144V176H432V144C432 126.3 417.7 112 400 112Z"/><path fill="#bdbdbd" d="M232 112H280V176H232z"/></svg>
-        </div>
-      </div>
-      <div class="progress-segment">DAY 7</div>
-    </div>
+  <div class="left-section">
+    <div class="title">WELCOME<br>OFFER</div>
+    <div class="claim-badge">CLAIM &rsaquo;</div>
   </div>
 
-  <button class="claim-button">CLAIM NOW</button>
+  <div class="scroll-container">
+    <div class="days-track">
+      
+      <div class="day-item completed">
+        <div class="day-val">20+</div>
+        <div class="icon-box"><svg viewBox="0 0 512 512"><path fill="#fff" d="M400 112H112C94 112 80 126 80 144V464C80 481 94 496 112 496H400C417 496 432 481 432 464V144C432 126 417 112 400 112Z"/><path fill="#ef5350" d="M232 112V496H280V112H232Z"/><path fill="#ffca28" d="M400 112H112C94 112 80 126 80 144V176H432V144C432 126 417 112 400 112Z"/></svg></div>
+        <div class="day-label">Day 1</div>
+      </div>
+      <div class="day-item completed">
+        <div class="day-val">20+</div>
+        <div class="icon-box"><svg viewBox="0 0 512 512"><path fill="#fff" d="M400 112H112C94 112 80 126 80 144V464C80 481 94 496 112 496H400C417 496 432 481 432 464V144C432 126 417 112 400 112Z"/><path fill="#ef5350" d="M232 112V496H280V112H232Z"/><path fill="#ffca28" d="M400 112H112C94 112 80 126 80 144V176H432V144C432 126 417 112 400 112Z"/></svg></div>
+        <div class="day-label">Day 2</div>
+      </div>
+       <div class="day-item completed">
+        <div class="day-val">20+</div>
+        <div class="icon-box"><svg viewBox="0 0 512 512"><path fill="#fff" d="M400 112H112C94 112 80 126 80 144V464C80 481 94 496 112 496H400C417 496 432 481 432 464V144C432 126 417 112 400 112Z"/><path fill="#ef5350" d="M232 112V496H280V112H232Z"/><path fill="#ffca28" d="M400 112H112C94 112 80 126 80 144V176H432V144C432 126 417 112 400 112Z"/></svg></div>
+        <div class="day-label">Day 3</div>
+      </div>
+
+      <div class="day-item active">
+        <div class="day-val">20+</div>
+        <div class="icon-box" style="transform: scale(1.2);"><svg viewBox="0 0 512 512"><path fill="#fff" d="M400 160H112C94 160 80 174 80 192V464C80 481 94 496 112 496H400C417 496 432 481 432 464V192C432 174 417 160 400 160Z"/><path fill="#ef5350" d="M232 160V496H280V160H232Z"/><path fill="#ffca28" d="M448 112H64C46 112 32 126 32 144V176C32 193 46 208 64 208H448C465 208 480 193 480 176V144C480 126 465 112 448 112Z"/></svg></div>
+        <div class="day-label">Day 4</div>
+      </div>
+
+      <div class="day-item locked">
+        <div class="day-val">20+</div>
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="#aaa"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div>
+        <div class="day-label">Day 5</div>
+      </div>
+      <div class="day-item locked">
+        <div class="day-val">20+</div>
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="#aaa"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div>
+        <div class="day-label">Day 6</div>
+      </div>
+       <div class="day-item locked">
+        <div class="day-val">20+</div>
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="#aaa"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div>
+        <div class="day-label">Day 7</div>
+      </div>
+
+    </div>
+  </div>
 
 </div>
 
