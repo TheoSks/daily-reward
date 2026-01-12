@@ -3,21 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Banner Fixed</title>
+<title>Banner Space Casino - Final Layout</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,900&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg-deep: #0B1120;
-    --red-glossy: radial-gradient(circle at top left, #ef4444, #991b1b);
-    --card-bg: #2B3855;
+    --red-glossy: radial-gradient(circle at top left, #ef4444, #b91c1c);
+    --card-bg: #1e293b;
+    --card-border: rgba(255,255,255,0.15);
+    --gold: #fbbf24;
     --green: #22c55e;
+    --neon-blue: #0ea5e9;
   }
 
   body {
     margin: 0;
     padding: 20px;
-    /* J'ai éclairci le fond pour qu'on voit bien la bannière si elle est sombre */
-    background-color: #111; 
+    background-color: #111; /* Fond page sombre pour contraste */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,176 +27,253 @@
     font-family: 'Montserrat', sans-serif;
   }
 
-  /* --- CONTENEUR --- */
+  /* --- LE CONTENEUR BANNIÈRE --- */
   .banner-container {
     position: relative;
     width: 100%;
-    max-width: 600px;
-    height: 110px; /* Hauteur sécurisée */
-    background: radial-gradient(circle at 20% 50%, #1e3a8a 0%, #0f172a 100%);
-    border-radius: 16px;
+    max-width: 600px; /* S'adapte, max 600px */
+    height: 90px;     /* Hauteur compacte type mobile */
+    
+    /* DA : Fond Bleu Nuit Spatial */
+    background: radial-gradient(circle at 10% 50%, #172554 0%, #020617 100%);
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    
+    /* DA : Effets de bordure et d'ombre */
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+    
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 15px;
+    padding: 0 12px;
     box-sizing: border-box;
-    /* Bordure blanche fine pour bien délimiter la bannière du fond noir */
-    border: 1px solid rgba(255,255,255,0.2); 
   }
 
-  /* Formes de fond */
-  .bg-shape {
-    position: absolute;
-    background: rgba(255,255,255,0.05);
-    pointer-events: none;
-    z-index: 0;
+  /* Éléments de fond (Étoiles/Formes) */
+  .bg-decor { position: absolute; pointer-events: none; z-index: 0; }
+  .star-1 { top: 10px; left: 40%; color: white; opacity: 0.6; font-size: 8px; }
+  .star-2 { bottom: 15px; right: 10%; color: var(--neon-blue); opacity: 0.8; font-size: 10px; }
+  .planet-bg { 
+    width: 100px; height: 100px; 
+    background: radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, transparent 70%);
+    top: -30px; left: -20px; border-radius: 50%;
   }
-  .shape-1 { width: 80px; height: 80px; transform: rotate(45deg); top: -40px; left: 15%; }
-  .shape-2 { width: 120px; height: 120px; border-radius: 50%; bottom: -50px; right: 10%; background: rgba(0, 255, 255, 0.05); }
 
-  /* --- GAUCHE : TITRE --- */
+  /* --- PARTIE GAUCHE : TITRE --- */
   .left-section {
+    flex: 0 0 auto;
     z-index: 2;
-    flex-shrink: 0;
-    margin-right: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 15px;
+    border-right: 1px solid rgba(255,255,255,0.1); /* Séparateur subtil */
+    margin-right: 10px;
   }
 
   .title {
     font-family: 'Montserrat', sans-serif;
     font-style: italic;
     font-weight: 900;
-    font-size: 24px;
-    line-height: 0.9;
+    font-size: 18px;
+    line-height: 1;
     color: white;
-    text-transform: capitalize;
-    /* Contour noir pour la lisibilité */
-    -webkit-text-stroke: 1.5px black;
-    text-shadow: 3px 3px 0px #000;
-    transform: rotate(-3deg);
+    text-transform: uppercase;
+    
+    /* DA : Typo Space Casino (Contour Noir) */
+    -webkit-text-stroke: 1.2px black;
+    text-shadow: 2px 2px 0px #000;
+    transform: skewX(-5deg); /* Légère inclinaison vitesse */
   }
-  .title span { font-size: 0.8em; display: block; }
+  .title span {
+    color: var(--gold);
+    font-size: 1.1em;
+    display: block;
+  }
 
-  /* --- DROITE : SCROLL --- */
-  .scroll-container {
+  .claim-badge {
+    margin-top: 4px;
+    font-size: 9px;
+    font-weight: 800;
+    background: var(--gold);
+    color: #000;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
+    cursor: pointer;
+    transform: skewX(-5deg);
+    display: inline-block;
+    width: fit-content;
+  }
+
+  /* --- PARTIE DROITE : SCROLL --- */
+  .scroll-wrapper {
     flex: 1;
+    height: 100%;
     z-index: 2;
     overflow-x: auto;
-    /* Masquer la scrollbar proprement */
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    mask-image: linear-gradient(to right, transparent, black 10%, black 95%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 95%, transparent);
-    padding: 10px 0 10px 10px;
     display: flex;
     align-items: center;
+    
+    /* Masquer scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    
+    /* Masque dégradé pour l'effet infini */
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    
+    padding-left: 5px;
   }
-  .scroll-container::-webkit-scrollbar { display: none; }
+  .scroll-wrapper::-webkit-scrollbar { display: none; }
 
-  .items-track {
+  .items-list {
     display: flex;
-    gap: 12px;
-    padding-right: 15px;
+    gap: 8px;
+    align-items: center;
+    padding-right: 15px; /* Espace fin de scroll */
   }
 
-  /* --- CARTES --- */
-  .item-card {
-    width: 60px;
-    height: 60px;
-    border-radius: 12px;
+  /* --- LES CARTES (DA Space) --- */
+  .card {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.4);
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid var(--card-border);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
   }
 
-  /* 1. Rouge (Bonus) */
-  .item-card.reward-red {
+  /* 1. CARTE ROUGE (Highlight) */
+  .card.red-reward {
+    width: 55px; height: 55px; /* Un peu plus grosse */
     background: var(--red-glossy);
-    flex-direction: column;
     border: 1px solid rgba(255,255,255,0.4);
     box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+    flex-direction: column;
   }
-  .item-card.reward-red svg {
-    width: 24px;
-    height: 24px;
-    margin-bottom: -4px;
-    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
+  .card.red-reward svg {
+    width: 22px; height: 22px;
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.4));
+    margin-bottom: -2px;
   }
-  .item-card.reward-red .text-val {
-    font-size: 14px;
+  .card.red-reward .val {
+    font-size: 11px;
     font-weight: 900;
     font-style: italic;
     color: white;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
   }
 
-  /* 2. Bleu (Coin) */
-  .item-card.coin-blue { background: var(--card-bg); }
-  .item-card.coin-blue svg { width: 34px; height: 34px; filter: drop-shadow(0 3px 3px rgba(0,0,0,0.5)); }
+  /* 2. CARTE BLEUE (Coin) */
+  .card.blue-coin {
+    background: var(--card-bg);
+  }
+  .card.blue-coin svg {
+    width: 30px; height: 30px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6));
+  }
 
-  /* 3. Vert (Check) */
-  .item-card.check-green { background: var(--card-bg); }
-  .item-card.check-green .circle {
-    width: 32px; height: 32px;
+  /* 3. CARTE VERTE (Check) */
+  .card.green-check {
+    background: rgba(34, 197, 94, 0.1);
+    border-color: var(--green);
+  }
+  .card.green-check .circle {
+    width: 24px; height: 24px;
     background: var(--green);
     border-radius: 50%;
     display: flex; justify-content: center; align-items: center;
-    box-shadow: 0 2px 0 #166534;
+    box-shadow: 0 2px 0 #14532d;
   }
-  .item-card.check-green svg { width: 20px; fill: white; }
+  .card.green-check svg { width: 14px; fill: white; }
 
-  /* 4. Gris (Lock) */
-  .item-card.lock-grey { background: var(--card-bg); opacity: 0.6; }
-  .item-card.lock-grey svg { width: 26px; fill: #94a3b8; }
+  /* 4. CARTE GRISE (Lock) */
+  .card.grey-lock {
+    background: var(--card-bg);
+    opacity: 0.6;
+  }
+  .card.grey-lock svg { width: 20px; fill: #64748b; }
+
+  /* Label "Day X" sous les cartes */
+  .day-label {
+    position: absolute;
+    bottom: -16px;
+    font-size: 8px;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+  }
+  .card.red-reward + .day-label { color: var(--gold); bottom: -18px; }
 
 </style>
 </head>
 <body>
 
 <div class="banner-container">
-  <div class="bg-shape shape-1"></div>
-  <div class="bg-shape shape-2"></div>
+  <div class="bg-decor planet-bg"></div>
+  <div class="bg-decor star-1">✦</div>
+  <div class="bg-decor star-2">✦</div>
 
   <div class="left-section">
     <div class="title">Welcome<br><span>Offer</span></div>
+    <div class="claim-badge">CLAIM ></div>
   </div>
 
-  <div class="scroll-container">
-    <div class="items-track">
+  <div class="scroll-wrapper">
+    <div class="items-list">
       
-      <div class="item-card reward-red">
-        <svg viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="10" fill="#fbbf24" stroke="#b45309" stroke-width="1"/>
-          <path d="M12 6v12M6 12h12" stroke="#b45309" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <div class="text-val">x20</div>
-      </div>
-
-      <div class="item-card coin-blue">
-        <svg viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="11" fill="#fbbf24" stroke="#b45309" stroke-width="1"/>
-          <path d="M8 10h3v4H8z" fill="#b45309" opacity="0.6"/>
-          <path d="M13 10h3v4h-3z" fill="#b45309" opacity="0.6"/>
-        </svg>
-      </div>
-
-      <div class="item-card check-green">
-        <div class="circle">
-          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+      <div style="position:relative">
+        <div class="card red-reward">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" fill="#fbbf24" stroke="#b45309" stroke-width="1.5"/>
+            <path d="M10 8h4v8h-4z" fill="#b45309" opacity="0.3"/> 
+            <path d="M12 6v12" stroke="#b45309" stroke-width="2"/>
+          </svg>
+          <div class="val">x20</div>
         </div>
+        <div class="day-label">Day 1</div>
       </div>
 
-      <div class="item-card lock-grey">
-        <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+      <div style="position:relative">
+        <div class="card blue-coin">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="11" fill="#fbbf24" stroke="#b45309" stroke-width="1"/>
+            <text x="12" y="16" font-family="Arial" font-weight="bold" font-size="12" text-anchor="middle" fill="#b45309">$</text>
+          </svg>
+        </div>
+        <div class="day-label">Day 2</div>
       </div>
-      
-       <div class="item-card lock-grey">
-        <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+
+      <div style="position:relative">
+        <div class="card green-check">
+          <div class="circle">
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          </div>
+        </div>
+        <div class="day-label">Day 3</div>
+      </div>
+
+      <div style="position:relative">
+        <div class="card grey-lock">
+          <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+        </div>
+        <div class="day-label">Day 4</div>
+      </div>
+
+      <div style="position:relative">
+        <div class="card grey-lock">
+          <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+        </div>
+        <div class="day-label">Day 5</div>
       </div>
 
     </div>
