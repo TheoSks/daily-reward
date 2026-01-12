@@ -63,38 +63,32 @@
             padding: 0 10px;
         }
 
-        .track-segment {
-            flex: 1;
-            height: 40px;
-            background: var(--locked-bg);
-            transform: skewX(-20deg); /* Forme inclinée */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 4px;
-            border: 2px solid rgba(0,0,0,0.2);
-            position: relative;
-        }
+        /* Remplace le CSS de .track-segment par ceci */
+.track-segment {
+    flex: 1;
+    height: 50px;
+    background: var(--locked-bg);
+    /* Forme d'aileron rapide */
+    clip-path: polygon(15% 0, 100% 0, 85% 100%, 0% 100%);
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 2px;
+    /* Petit effet de vitesse sur le texte/icone à l'intérieur */
+    font-style: italic; 
+    transition: all 0.3s ease;
+}
 
-        .track-segment.completed {
-            background: var(--success);
-            box-shadow: 0 0 10px rgba(34, 197, 94, 0.4);
-        }
-
-        .track-segment.active {
-            background: var(--gold);
-            box-shadow: 0 0 15px var(--gold-glow);
-            border-color: #fff;
-            transform: skewX(-20deg) scale(1.05);
-            z-index: 2;
-        }
-
-        .track-segment svg {
-            transform: skewX(20deg); /* Redresser l'icône */
-            width: 20px;
-            height: 20px;
-            fill: white;
-        }
+.track-segment.active {
+    background: linear-gradient(90deg, var(--gold) 0%, #f59e0b 100%);
+    /* On le fait légèrement "décoller" */
+    transform: skewX(-10deg) translateY(-3px) scale(1.05);
+    box-shadow: -5px 5px 15px rgba(251, 191, 36, 0.4);
+    z-index: 5;
+}
+/* Pour redresser l'icône à l'intérieur si nécessaire */
+.track-segment svg { font-style: normal; }
 
         /* --- Grille des Cartes (Bas) --- */
         .days-grid {
