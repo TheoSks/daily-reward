@@ -2,665 +2,320 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Daily Reward - Rocket Progress</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Rewards UI</title>
     <style>
-        :root {
-            --betclic-red: #E30613;
-            --betclic-red-dark: #B8050F;
-            --bg-primary: #FFFFFF;
-            --bg-secondary: #F5F5F5;
-            --bg-card: #FFFFFF;
-            --gold: #FFD700;
-            --gold-dark: #E6A800;
-            --text-primary: #1A1A1A;
-            --text-secondary: #666666;
-            --success: #00C853;
-            --locked: #CCCCCC;
-            --border-light: #E0E0E0;
-            --track-color: #D0D0D0;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&display=swap');
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
+        :root {
+            --bg-deep: #0f172a;
+            --bg-light: #1e293b;
+            --success: #22c55e;
+            --gold: #fbbf24;
+            --gold-glow: #f59e0b;
+            --locked: #94a3b8;
+            --locked-bg: #475569;
+            --neon-blue: #22d3ee;
+            --white: #ffffff;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-secondary);
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
-            padding: 20px;
+            color: var(--white);
         }
 
-        .container {
-            max-width: 420px;
-            margin: 0 auto;
+        /* Container Principal */
+        .reward-container {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* ========== DAILY REWARD WIDGET ========== */
-        .daily-reward-widget {
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 2px solid var(--betclic-red);
-            box-shadow: 0 4px 20px rgba(227, 6, 19, 0.15);
+        /* Titre */
+        h1 {
+            font-size: 3rem;
+            text-transform: uppercase;
+            margin: 0 0 1.5rem 0;
+            text-shadow: 3px 3px 0px #000;
+            font-style: italic;
+            letter-spacing: -1px;
+            -webkit-text-stroke: 1px black; /* Contour noir style cartoon */
         }
 
-        /* Header */
-        .widget-header {
+        /* --- Barre de Progression (Haut) --- */
+        .progress-track {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
+            gap: 5px;
+            margin-bottom: 2rem;
+            padding: 0 10px;
         }
 
-        .widget-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .gift-icon {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, var(--betclic-red) 0%, var(--betclic-red-dark) 100%);
-            border-radius: 8px;
+        .track-segment {
+            flex: 1;
+            height: 40px;
+            background: var(--locked-bg);
+            transform: skewX(-20deg); /* Forme inclinée */
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
-        }
-
-        .widget-title h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--text-primary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .reward-badge {
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 11px;
-            font-weight: 700;
-            color: #000;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            box-shadow: 0 3px 10px rgba(255, 215, 0, 0.4);
-        }
-
-        /* ========== ROCKET PROGRESS BAR ========== */
-        .rocket-progress-container {
-            position: relative;
-            padding: 40px 10px 50px;
-            margin: 10px 0 20px;
-        }
-
-        /* Track background */
-        .progress-track {
-            position: relative;
-            height: 8px;
-            background: var(--track-color);
             border-radius: 4px;
-            margin: 0 15px;
-        }
-
-        /* Filled track */
-        .progress-track-filled {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            background: linear-gradient(90deg, var(--betclic-red) 0%, #FF5555 100%);
-            border-radius: 4px;
-            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 0 10px rgba(227, 6, 19, 0.4);
-        }
-
-        /* Day markers container */
-        .day-markers {
-            position: absolute;
-            top: 36px;
-            left: 15px;
-            right: 15px;
-            height: 8px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        /* Individual day marker */
-        .day-marker {
+            border: 2px solid rgba(0,0,0,0.2);
             position: relative;
+        }
+
+        .track-segment.completed {
+            background: var(--success);
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.4);
+        }
+
+        .track-segment.active {
+            background: var(--gold);
+            box-shadow: 0 0 15px var(--gold-glow);
+            border-color: #fff;
+            transform: skewX(-20deg) scale(1.05);
+            z-index: 2;
+        }
+
+        .track-segment svg {
+            transform: skewX(20deg); /* Redresser l'icône */
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        /* --- Grille des Cartes (Bas) --- */
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .day-card {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        .marker-dot {
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: var(--track-color);
-            border: 3px solid #fff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        .day-label {
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            color: #cbd5e1;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .reward-box {
+            width: 100%;
+            aspect-ratio: 1;
+            background: #334155;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10px;
-            font-weight: bold;
-            color: #fff;
+            border: 3px solid transparent;
+            transition: transform 0.2s;
             position: relative;
-            top: -7px;
-            z-index: 2;
-            transition: all 0.3s;
         }
 
-        .day-marker.claimed .marker-dot {
+        .reward-box svg {
+            width: 50%;
+            height: 50%;
+            fill: white;
+        }
+
+        /* Styles spécifiques aux états */
+        .day-card.completed .reward-box {
+            background: rgba(34, 197, 94, 0.2);
+            border-color: var(--success);
+        }
+        .day-card.completed .circle-icon {
             background: var(--success);
-            box-shadow: 0 2px 8px rgba(0, 200, 83, 0.4);
+            border-radius: 50%;
+            padding: 10px;
+            box-shadow: 0 4px 0 #15803d; /* Effet 3D bouton */
         }
 
-        .day-marker.claimed .marker-dot::after {
-            content: '✓';
-            font-size: 11px;
+        .day-card.active .day-label {
+            color: var(--gold);
+        }
+        .day-card.active .reward-box {
+            background: rgba(251, 191, 36, 0.15);
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+            animation: pulse 2s infinite;
+        }
+        .day-card.active .coin-icon {
+            fill: var(--gold);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+            width: 60%; 
+            height: 60%;
         }
 
-        .day-marker.claimable .marker-dot {
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
-            animation: pulse-marker 1.5s ease-in-out infinite;
-            width: 26px;
-            height: 26px;
-            top: -9px;
+        .day-card.locked .reward-box {
+            background: #1e293b;
+            border-color: #475569;
+        }
+        .day-card.locked svg {
+            fill: #64748b;
         }
 
-        @keyframes pulse-marker {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 215, 0, 0.7); }
-            50% { transform: scale(1.15); box-shadow: 0 0 30px rgba(255, 215, 0, 0.9); }
+        /* --- Bouton Claim --- */
+        .claim-btn-container {
+            display: flex;
+            justify-content: flex-end;
         }
 
-        .day-marker.unclaimed .marker-dot {
-            background: #BDBDBD;
-        }
-
-        .day-marker.unclaimed .marker-dot::after {
-            content: '✕';
-            font-size: 10px;
-            color: #777;
-        }
-
-        .day-marker.locked .marker-dot {
-            background: #E0E0E0;
-            border-color: #F5F5F5;
-        }
-
-        .marker-label {
-            position: absolute;
-            top: 24px;
-            font-size: 10px;
-            font-weight: 700;
-            color: var(--text-secondary);
-            white-space: nowrap;
-        }
-
-        .day-marker.claimed .marker-label {
-            color: var(--success);
-        }
-
-        .day-marker.claimable .marker-label {
-            color: var(--betclic-red);
-            font-weight: 800;
-        }
-
-        .marker-reward {
-            position: absolute;
-            top: 38px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 9px;
-            font-weight: 700;
-            color: var(--betclic-red);
-        }
-
-        .day-marker.claimed .marker-reward {
-            color: var(--success);
-        }
-
-        .day-marker.locked .marker-reward,
-        .day-marker.unclaimed .marker-reward {
-            color: #AAAAAA;
-        }
-
-        /* Day 7 special marker */
-        .day-marker.special .marker-dot {
-            width: 28px;
-            height: 28px;
-            top: -10px;
-            background: linear-gradient(135deg, var(--gold) 0%, #FF8C00 100%);
-            font-size: 12px;
-        }
-
-        .day-marker.special.locked .marker-dot {
-            background: linear-gradient(135deg, #E0E0E0 0%, #CCCCCC 100%);
-        }
-
-        .day-marker.special .marker-reward {
-            color: var(--gold-dark);
-            font-size: 10px;
-        }
-
-        /* ========== ROCKET ========== */
-        .rocket-wrapper {
-            position: absolute;
-            top: -5px;
-            left: 15px;
-            transition: left 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
-            z-index: 10;
-        }
-
-        .rocket {
-            width: 55px;
-            height: 55px;
-            position: relative;
-            transform: rotate(90deg);
-            animation: rocket-hover 1.5s ease-in-out infinite;
-            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
-        }
-
-        @keyframes rocket-hover {
-            0%, 100% { transform: rotate(90deg) translateY(0); }
-            50% { transform: rotate(90deg) translateY(-4px); }
-        }
-
-        /* Rocket flame animation */
-        .flame {
-            position: absolute;
-            left: 50%;
-            bottom: -8px;
-            transform: translateX(-50%) rotate(-90deg);
-        }
-
-        .flame svg {
-            width: 25px;
-            height: 35px;
-        }
-
-        .flame-outer {
-            fill: #FFD700;
-            animation: flame-flicker 0.1s ease-in-out infinite alternate;
-        }
-
-        .flame-inner {
-            fill: #FF6B35;
-            animation: flame-flicker 0.15s ease-in-out infinite alternate;
-        }
-
-        .flame-core {
-            fill: #FFFFFF;
-            animation: flame-flicker 0.08s ease-in-out infinite alternate;
-        }
-
-        @keyframes flame-flicker {
-            0% { opacity: 0.85; transform: scaleY(1) scaleX(1); }
-            100% { opacity: 1; transform: scaleY(1.15) scaleX(0.95); }
-        }
-
-        /* ========== CLAIM BUTTON ========== */
         .claim-btn {
-            display: block;
-            width: 100%;
-            margin-top: 10px;
-            padding: 14px;
-            background: linear-gradient(135deg, var(--betclic-red) 0%, var(--betclic-red-dark) 100%);
-            border: none;
-            border-radius: 12px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 15px;
-            font-weight: 700;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            background: transparent;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            padding: 15px 60px;
+            border: 3px solid var(--neon-blue);
+            border-radius: 15px;
             cursor: pointer;
-            box-shadow: 0 4px 0 var(--betclic-red-dark), 0 6px 20px rgba(227, 6, 19, 0.3);
-            transition: all 0.2s;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(34, 211, 238, 0.3), inset 0 0 15px rgba(34, 211, 238, 0.1);
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .claim-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .claim-btn:hover::before {
-            left: 100%;
+        .claim-btn:hover {
+            background: var(--neon-blue);
+            box-shadow: 0 0 30px rgba(34, 211, 238, 0.6);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            transform: translateY(-2px);
         }
 
         .claim-btn:active {
-            transform: translateY(2px);
-            box-shadow: 0 2px 0 var(--betclic-red-dark);
+            transform: translateY(1px);
         }
 
-        /* Progress text */
-        .progress-text {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid var(--border-light);
+        /* Animations */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 15px rgba(251, 191, 36, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(251, 191, 36, 0.6); }
+            100% { box-shadow: 0 0 15px rgba(251, 191, 36, 0.2); }
         }
 
-        .progress-label {
-            font-size: 13px;
-            color: var(--text-secondary);
-        }
-
-        .progress-label span {
-            color: var(--betclic-red);
-            font-weight: 700;
-        }
-
-        .total-reward {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 12px;
-            color: var(--gold-dark);
-            font-weight: 700;
-        }
-
-        /* ========== REWARD POPUP ========== */
-        .reward-popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            background: var(--bg-card);
-            padding: 40px 50px;
-            border-radius: 24px;
-            text-align: center;
-            z-index: 200;
-            border: 3px solid var(--gold);
-            box-shadow: 0 0 60px rgba(255, 215, 0, 0.4);
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .reward-popup.show {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
-        }
-
-        .reward-popup .big-icon {
-            font-size: 64px;
-            display: block;
-            margin-bottom: 16px;
-        }
-
-        .reward-popup h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 22px;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-        }
-
-        .reward-popup .reward-amount {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 32px;
-            font-weight: 900;
-            color: var(--betclic-red);
-        }
-
-        /* Confetti */
-        .confetti {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            top: -10px;
-            animation: confetti-fall 3s linear forwards;
-            border-radius: 2px;
-        }
-
-        @keyframes confetti-fall {
-            to {
-                top: 100vh;
-                transform: rotate(720deg);
+        /* Mobile Responsive */
+        @media (max-width: 600px) {
+            .days-grid {
+                grid-template-columns: repeat(4, 1fr); /* 2 lignes sur mobile */
             }
-        }
-
-        /* Responsive */
-        @media (max-width: 380px) {
-            .marker-label {
-                font-size: 9px;
+            .day-card:nth-child(n+5) {
+                grid-column: span 1; /* Suite sur la ligne suivante */
             }
-            .marker-reward {
-                font-size: 8px;
-            }
-            .rocket {
-                width: 48px;
-                height: 48px;
-            }
+            h1 { font-size: 2rem; }
+            .claim-btn { width: 100%; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="daily-reward-widget">
-            <div class="widget-header">
-                <div class="widget-title">
-                    <div class="gift-icon">🎁</div>
-                    <h2>Daily Reward</h2>
-                </div>
-                <div class="reward-badge">
-                    🎰 20 FREE SPINS
-                </div>
+
+<div class="reward-container">
+    <h1>Daily Rewards</h1>
+
+    <div class="progress-track">
+        <div class="track-segment completed"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+        <div class="track-segment completed"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+        <div class="track-segment completed"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+        
+        <div class="track-segment active"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.86 0 .92-.81 1.5-2.32 1.5-1.4 0-2.04-.76-2.05-1.75H7.9c.09 1.76 1.12 2.66 2.96 2.98V20h2.2v-1.68c1.52-.3 2.85-1.31 2.85-2.92 0-2.01-1.69-2.75-3.6-3.26z"/></svg></div>
+        
+        <div class="track-segment"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div>
+        <div class="track-segment"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div>
+        <div class="track-segment"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div>
+    </div>
+
+    <div class="days-grid">
+        <div class="day-card completed">
+            <div class="day-label">Day 1</div>
+            <div class="reward-box">
+                <div class="circle-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
             </div>
-
-            <!-- Rocket Progress Bar -->
-            <div class="rocket-progress-container">
-                <!-- Rocket -->
-                <div class="rocket-wrapper" id="rocket">
-                    <div class="rocket">
-                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Rocket body -->
-                            <ellipse cx="50" cy="50" rx="18" ry="35" fill="#E8E8E8"/>
-                            <ellipse cx="50" cy="50" rx="14" ry="30" fill="#D4D4D4"/>
-
-                            <!-- Rocket tip (red) -->
-                            <path d="M50 12 L38 38 L62 38 Z" fill="#E30613"/>
-
-                            <!-- Window -->
-                            <circle cx="50" cy="42" r="9" fill="#4A4A8A"/>
-                            <circle cx="50" cy="42" r="7" fill="#6A6AAA"/>
-                            <ellipse cx="47" cy="40" rx="2.5" ry="3" fill="rgba(255,255,255,0.6)"/>
-
-                            <!-- Wings -->
-                            <path d="M30 72 L20 90 L42 78 Z" fill="#E30613"/>
-                            <path d="M70 72 L80 90 L58 78 Z" fill="#E30613"/>
-
-                            <!-- Center fin -->
-                            <path d="M43 82 L50 98 L57 82 Z" fill="#B8050F"/>
-                        </svg>
-
-                        <!-- Flame -->
-                        <div class="flame">
-                            <svg viewBox="0 0 40 60">
-                                <ellipse class="flame-outer" cx="20" cy="20" rx="15" ry="25"/>
-                                <ellipse class="flame-inner" cx="20" cy="18" rx="10" ry="18"/>
-                                <ellipse class="flame-core" cx="20" cy="15" rx="5" ry="10"/>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Track -->
-                <div class="progress-track">
-                    <div class="progress-track-filled" id="trackFilled"></div>
-                </div>
-
-                <!-- Day Markers -->
-                <div class="day-markers">
-                    <div class="day-marker claimed" data-day="1">
-                        <div class="marker-dot"></div>
-                        <span class="marker-label">D1</span>
-                        <span class="marker-reward">+1</span>
-                    </div>
-                    <div class="day-marker claimed" data-day="2">
-                        <div class="marker-dot"></div>
-                        <span class="marker-label">D2</span>
-                        <span class="marker-reward">+2</span>
-                    </div>
-                    <div class="day-marker unclaimed" data-day="3">
-                        <div class="marker-dot"></div>
-                        <span class="marker-label">D3</span>
-                        <span class="marker-reward">+3</span>
-                    </div>
-                    <div class="day-marker claimable" data-day="4">
-                        <div class="marker-dot"></div>
-                        <span class="marker-label">D4</span>
-                        <span class="marker-reward">+4</span>
-                    </div>
-                    <div class="day-marker locked" data-day="5">
-                        <div class="marker-dot"></div>
-                        <span class="marker-label">D5</span>
-                        <span class="marker-reward">+5</span>
-                    </div>
-                    <div class="day-marker locked" data-day="6">
-                        <div class="marker-dot"></div>
-                        <span class="marker-label">D6</span>
-                        <span class="marker-reward">+5</span>
-                    </div>
-                    <div class="day-marker locked special" data-day="7">
-                        <div class="marker-dot">🎁</div>
-                        <span class="marker-label">D7</span>
-                        <span class="marker-reward">+20</span>
-                    </div>
-                </div>
+        </div>
+        <div class="day-card completed">
+            <div class="day-label">Day 2</div>
+            <div class="reward-box">
+                <div class="circle-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
             </div>
+        </div>
+        <div class="day-card completed">
+            <div class="day-label">Day 3</div>
+            <div class="reward-box">
+                <div class="circle-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+            </div>
+        </div>
 
-            <button class="claim-btn" onclick="claimReward()">
-                🚀 Claim Reward
-            </button>
+        <div class="day-card active" id="currentDay">
+            <div class="day-label">Day 4</div>
+            <div class="reward-box">
+               <svg class="coin-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#fbbf24"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.86 0 .92-.81 1.5-2.32 1.5-1.4 0-2.04-.76-2.05-1.75H7.9c.09 1.76 1.12 2.66 2.96 2.98V20h2.2v-1.68c1.52-.3 2.85-1.31 2.85-2.92 0-2.01-1.69-2.75-3.6-3.26z" fill="#b45309"/></svg>
+            </div>
+        </div>
 
-            <div class="progress-text">
-                <span class="progress-label">Progression: <span id="progressCount">3/7</span> jours</span>
-                <span class="total-reward">🎰 Total: 20 Free Spins</span>
+        <div class="day-card locked">
+            <div class="day-label">Day 5</div>
+            <div class="reward-box">
+                <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+            </div>
+        </div>
+        <div class="day-card locked">
+            <div class="day-label">Day 6</div>
+            <div class="reward-box">
+                <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+            </div>
+        </div>
+        <div class="day-card locked">
+            <div class="day-label">Day 7</div>
+            <div class="reward-box">
+                <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
             </div>
         </div>
     </div>
 
-    <!-- Reward Popup -->
-    <div class="reward-popup" id="popup">
-        <span class="big-icon">🚀</span>
-        <h3>Félicitations!</h3>
-        <div class="reward-amount">+4 Free Spins</div>
+    <div class="claim-btn-container">
+        <button class="claim-btn" onclick="claimReward()">Claim</button>
     </div>
+</div>
 
-    <script>
-        // Current state
-        let currentDay = 4;
-        const totalDays = 7;
+<script>
+    function claimReward() {
+        const btn = document.querySelector('.claim-btn');
+        const currentDay = document.getElementById('currentDay');
+        
+        // Animation simple de feedback
+        btn.innerHTML = "Claimed!";
+        btn.style.background = "#22d3ee";
+        btn.style.color = "#000";
+        
+        // Changer le jour 4 en vert (simulé)
+        currentDay.classList.remove('active');
+        currentDay.classList.add('completed');
+        
+        const box = currentDay.querySelector('.reward-box');
+        box.innerHTML = '<div class="circle-icon"><svg viewBox="0 0 24 24" style="fill:white; width:100%; height:100%"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>';
+        
+        alert("Récompense récupérée !");
+    }
+</script>
 
-        // Position rocket at current claimable day
-        function updateRocketPosition() {
-            const rocket = document.getElementById('rocket');
-            const container = document.querySelector('.day-markers');
-            const containerWidth = container.offsetWidth;
-
-            // Calculate position (0 to 100%)
-            const position = ((currentDay - 1) / (totalDays - 1)) * containerWidth;
-            rocket.style.left = (15 + position - 27) + 'px';
-        }
-
-        // Update track fill
-        function updateTrackFill() {
-            const trackFilled = document.getElementById('trackFilled');
-            const fillPercentage = ((currentDay - 1) / (totalDays - 1)) * 100;
-            trackFilled.style.width = fillPercentage + '%';
-        }
-
-        // Update progress count
-        function updateProgressCount() {
-            const claimed = document.querySelectorAll('.day-marker.claimed').length;
-            document.getElementById('progressCount').textContent = claimed + '/' + totalDays;
-        }
-
-        // Claim reward
-        function claimReward() {
-            const claimableMarker = document.querySelector('.day-marker.claimable');
-            if (!claimableMarker) return;
-
-            // Show popup
-            const popup = document.getElementById('popup');
-            popup.classList.add('show');
-            createConfetti();
-
-            // Update marker to claimed
-            setTimeout(() => {
-                claimableMarker.classList.remove('claimable');
-                claimableMarker.classList.add('claimed');
-
-                // Find next locked and make claimable
-                const nextLocked = document.querySelector('.day-marker.locked');
-                if (nextLocked) {
-                    nextLocked.classList.remove('locked');
-                    nextLocked.classList.add('claimable');
-                    currentDay++;
-                    updateRocketPosition();
-                    updateTrackFill();
-                }
-
-                updateProgressCount();
-            }, 500);
-
-            // Hide popup
-            setTimeout(() => {
-                popup.classList.remove('show');
-            }, 2500);
-        }
-
-        // Create confetti
-        function createConfetti() {
-            const colors = ['#E30613', '#FFD700', '#00C853', '#FF6B6B', '#4CAF50'];
-            for (let i = 0; i < 40; i++) {
-                setTimeout(() => {
-                    const confetti = document.createElement('div');
-                    confetti.className = 'confetti';
-                    confetti.style.left = Math.random() * 100 + 'vw';
-                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                    confetti.style.width = (Math.random() * 8 + 5) + 'px';
-                    confetti.style.height = confetti.style.width;
-                    document.body.appendChild(confetti);
-                    setTimeout(() => confetti.remove(), 4000);
-                }, i * 30);
-            }
-        }
-
-        // Initialize
-        window.addEventListener('load', () => {
-            updateRocketPosition();
-            updateTrackFill();
-        });
-
-        window.addEventListener('resize', () => {
-            updateRocketPosition();
-        });
-    </script>
 </body>
 </html>
