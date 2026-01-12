@@ -3,23 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Banner Space Casino - Final Layout</title>
+<title>Banner Welcome Offer - Replica</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,900&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg-deep: #0B1120;
-    --red-glossy: radial-gradient(circle at top left, #ef4444, #b91c1c);
-    --card-bg: #1e293b;
-    --card-border: rgba(255,255,255,0.15);
-    --gold: #fbbf24;
-    --green: #22c55e;
-    --neon-blue: #0ea5e9;
+    /* Couleurs Principales */
+    --bg-dark: #020617;
+    --bg-blue: #172554;
+    --neon-blue: #3b82f6;
+    --neon-gold: #f59e0b;
+    --neon-green: #22c55e;
+    
+    /* Dégradés de boîtes */
+    --grad-green: linear-gradient(180deg, #4ade80 0%, #16a34a 100%);
+    --grad-gold: linear-gradient(180deg, #fde047 0%, #d97706 100%);
+    --grad-grey: linear-gradient(180deg, #94a3b8 0%, #475569 100%);
+    
+    /* Dégradés de bordures/textes */
+    --text-gold-stroke: #b45309;
+    --border-blue-glow: 0 0 20px rgba(59, 130, 246, 0.6);
   }
 
   body {
     margin: 0;
-    padding: 20px;
-    background-color: #111; /* Fond page sombre pour contraste */
+    padding: 30px;
+    background-color: #000;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,257 +35,322 @@
     font-family: 'Montserrat', sans-serif;
   }
 
-  /* --- LE CONTENEUR BANNIÈRE --- */
+  /* --- CONTENEUR PRINCIPAL --- */
   .banner-container {
     position: relative;
-    width: 100%;
-    max-width: 600px; /* S'adapte, max 600px */
-    height: 90px;     /* Hauteur compacte type mobile */
-    
-    /* DA : Fond Bleu Nuit Spatial */
-    background: radial-gradient(circle at 10% 50%, #172554 0%, #020617 100%);
-    border-radius: 12px;
+    width: 900px;
+    height: 380px;
+    /* Fond spatial complexe */
+    background: 
+        radial-gradient(circle at 50% 30%, #1e3a8a 0%, transparent 60%),
+        radial-gradient(circle at 80% 80%, #172554 0%, transparent 50%),
+        #020617;
+    border-radius: 24px;
     overflow: hidden;
-    
-    /* DA : Effets de bordure et d'ombre */
-    border: 1px solid rgba(255,255,255,0.2);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
-    
+    /* Bordure lumineuse bleue */
+    border: 3px solid var(--neon-blue);
+    box-shadow: var(--border-blue-glow), inset 0 0 30px rgba(0,0,0,0.8);
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 12px;
+    padding: 20px;
     box-sizing: border-box;
   }
 
-  /* Éléments de fond (Étoiles/Formes) */
-  .bg-decor { position: absolute; pointer-events: none; z-index: 0; }
-  .star-1 { top: 10px; left: 40%; color: white; opacity: 0.6; font-size: 8px; }
-  .star-2 { bottom: 15px; right: 10%; color: var(--neon-blue); opacity: 0.8; font-size: 10px; }
-  .planet-bg { 
-    width: 100px; height: 100px; 
-    background: radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, transparent 70%);
-    top: -30px; left: -20px; border-radius: 50%;
-  }
+  /* --- ÉLÉMENTS DE DÉCOR (FUSÉES/PLANÈTES) --- */
+  .decor { position: absolute; pointer-events: none; z-index: 0; filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); }
+  /* Petite étoile brillante */
+  .star-flash { top: 15%; left: 65%; color: white; font-size: 24px; text-shadow: 0 0 10px white; animation: pulse 2s infinite; }
+  /* Planètes et fusées SVG */
+  .rocket-1 { top: 10%; left: 5%; transform: rotate(15deg); width: 60px; }
+  .rocket-2 { top: 15%; right: 10%; transform: rotate(-10deg); width: 50px; }
+  .planet-1 { bottom: 10%; left: 2%; width: 80px; opacity: 0.8; }
+  .planet-2 { top: 5%; right: 5%; width: 100px; opacity: 0.6; }
+  
+  /* Animation pour faire scintiller les étoiles */
+  @keyframes pulse { 0%, 100% { opacity: 1; scale: 1; } 50% { opacity: 0.7; scale: 0.8; } }
 
-  /* --- PARTIE GAUCHE : TITRE --- */
-  .left-section {
-    flex: 0 0 auto;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-right: 15px;
-    border-right: 1px solid rgba(255,255,255,0.1); /* Séparateur subtil */
-    margin-right: 10px;
-  }
 
+  /* --- TITRE "WELCOME OFFER" --- */
   .title {
-    font-family: 'Montserrat', sans-serif;
-    font-style: italic;
-    font-weight: 900;
-    font-size: 18px;
-    line-height: 1;
-    color: white;
-    text-transform: uppercase;
-    
-    /* DA : Typo Space Casino (Contour Noir) */
-    -webkit-text-stroke: 1.2px black;
-    text-shadow: 2px 2px 0px #000;
-    transform: skewX(-5deg); /* Légère inclinaison vitesse */
-  }
-  .title span {
-    color: var(--gold);
-    font-size: 1.1em;
-    display: block;
-  }
-
-  .claim-badge {
-    margin-top: 4px;
-    font-size: 9px;
-    font-weight: 800;
-    background: var(--gold);
-    color: #000;
-    padding: 2px 8px;
-    border-radius: 4px;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
-    cursor: pointer;
-    transform: skewX(-5deg);
-    display: inline-block;
-    width: fit-content;
-  }
-
-  /* --- PARTIE DROITE : SCROLL --- */
-  .scroll-wrapper {
-    flex: 1;
-    height: 100%;
-    z-index: 2;
-    overflow-x: auto;
-    display: flex;
-    align-items: center;
-    
-    /* Masquer scrollbar */
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    
-    /* Masque dégradé pour l'effet infini */
-    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
-    
-    padding-left: 5px;
-  }
-  .scroll-wrapper::-webkit-scrollbar { display: none; }
-
-  .items-list {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    padding-right: 15px; /* Espace fin de scroll */
-  }
-
-  /* --- LES CARTES (DA Space) --- */
-  .card {
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
-    border: 1px solid var(--card-border);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-  }
-
-  /* 1. CARTE ROUGE (Highlight) */
-  .card.red-reward {
-    width: 55px; height: 55px; /* Un peu plus grosse */
-    background: var(--red-glossy);
-    border: 1px solid rgba(255,255,255,0.4);
-    box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
-    flex-direction: column;
-  }
-  .card.red-reward svg {
-    width: 22px; height: 22px;
-    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.4));
-    margin-bottom: -2px;
-  }
-  .card.red-reward .val {
-    font-size: 11px;
+    z-index: 2;
+    font-size: 64px;
     font-weight: 900;
     font-style: italic;
-    color: white;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
-  }
-
-  /* 2. CARTE BLEUE (Coin) */
-  .card.blue-coin {
-    background: var(--card-bg);
-  }
-  .card.blue-coin svg {
-    width: 30px; height: 30px;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6));
-  }
-
-  /* 3. CARTE VERTE (Check) */
-  .card.green-check {
-    background: rgba(34, 197, 94, 0.1);
-    border-color: var(--green);
-  }
-  .card.green-check .circle {
-    width: 24px; height: 24px;
-    background: var(--green);
-    border-radius: 50%;
-    display: flex; justify-content: center; align-items: center;
-    box-shadow: 0 2px 0 #14532d;
-  }
-  .card.green-check svg { width: 14px; fill: white; }
-
-  /* 4. CARTE GRISE (Lock) */
-  .card.grey-lock {
-    background: var(--card-bg);
-    opacity: 0.6;
-  }
-  .card.grey-lock svg { width: 20px; fill: #64748b; }
-
-  /* Label "Day X" sous les cartes */
-  .day-label {
-    position: absolute;
-    bottom: -16px;
-    font-size: 8px;
-    font-weight: 700;
-    color: #64748b;
     text-transform: uppercase;
+    margin: 10px 0 30px 0;
+    color: white;
+    /* Technique pour le contour doré épais */
+    -webkit-text-stroke: 3px var(--text-gold-stroke);
+    text-shadow: 
+        0 0 0px var(--text-gold-stroke),
+        3px 3px 0px #000,
+        0 0 20px rgba(251, 191, 36, 0.8); /* Lueur dorée */
+    letter-spacing: 2px;
+  }
+
+  /* --- CONTENEUR DES JOURS --- */
+  .days-container {
+    display: flex;
+    gap: 15px;
+    z-index: 2;
+    align-items: flex-end; /* Aligner en bas pour gérer le jour central plus grand */
+    height: 200px;
+  }
+
+  /* --- STRUCTURE D'UN ITEM JOUR --- */
+  .day-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 110px;
+  }
+
+  /* La boîte principale */
+  .reward-box {
+    width: 100%;
+    height: 110px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 10px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    border: 3px solid transparent;
+  }
+
+  /* Texte "20+" en haut */
+  .top-text {
+    font-size: 24px;
+    font-weight: 900;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    margin-bottom: 5px;
+    z-index: 3;
+  }
+  /* Conteneur de l'image (cadeau/cadenas) */
+  .img-container {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+  .img-container svg { width: 100%; height: auto; filter: drop-shadow(0 4px 5px rgba(0,0,0,0.5)); }
+
+  /* Étiquette "DAY X" en bas */
+  .day-label {
     width: 100%;
     text-align: center;
+    padding: 8px 0;
+    font-weight: 800;
+    font-size: 16px;
+    color: white;
+    text-transform: uppercase;
+    border-radius: 0 0 12px 12px;
+    margin-top: -5px; /* Chevauchement */
+    z-index: 1;
+    position: relative;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+    clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%); /* Forme trapèze subtile */
   }
-  .card.red-reward + .day-label { color: var(--gold); bottom: -18px; }
 
+  /* --- VARIANTES D'ÉTATS --- */
+
+  /* 1. COMPLETED (Vert) */
+  .day-item.completed .reward-box {
+    background: var(--grad-green);
+    border-color: #4ade80;
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+  }
+  .day-item.completed .day-label { background: linear-gradient(to right, #16a34a, #15803d); }
+
+  /* 2. ACTIVE (Or - Jour Central) */
+  .day-item.active {
+    width: 130px; /* Plus large */
+    transform: translateY(-20px); /* Remonté */
+  }
+  .day-item.active .reward-box {
+    height: 130px; /* Plus haut */
+    background: var(--grad-gold);
+    border-color: #fde047;
+    /* Grosse lueur dorée */
+    box-shadow: 0 0 40px rgba(251, 191, 36, 0.7), inset 0 0 20px rgba(255,255,255,0.5);
+  }
+  .day-item.active .top-text { font-size: 28px; color: #78350f; text-shadow: 0 1px 1px rgba(255,255,255,0.5); }
+  .day-item.active .day-label { background: linear-gradient(to right, #d97706, #b45309); padding: 10px 0; }
+
+  /* Texte "READY TO CLAIM" sous le jour actif */
+  .ready-text {
+    position: absolute;
+    bottom: -35px;
+    width: 200%;
+    text-align: center;
+    font-weight: 900;
+    font-size: 14px;
+    color: var(--neon-gold);
+    text-transform: uppercase;
+    text-shadow: 0 0 10px var(--neon-gold);
+    letter-spacing: 1px;
+  }
+
+  /* 3. LOCKED (Gris) */
+  .day-item.locked .reward-box {
+    background: var(--grad-grey);
+    border-color: #94a3b8;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+  }
+  .day-item.locked .top-text { color: #cbd5e1; }
+  .day-item.locked .day-label { background: linear-gradient(to right, #64748b, #475569); color: #cbd5e1; }
+  /* Effet visuel sur les éléments verrouillés */
+  .day-item.locked .img-container { opacity: 0.6; filter: grayscale(1) brightness(0.8) drop-shadow(0 2px 3px rgba(0,0,0,0.8)); }
+
+
+  /* --- BOUTON "CLAIM NOW" --- */
+  .claim-btn {
+    position: absolute;
+    bottom: 25px;
+    right: 30px;
+    padding: 15px 40px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    font-style: italic;
+    color: white;
+    text-transform: uppercase;
+    /* Fond dégradé bleu */
+    background: linear-gradient(180deg, #60a5fa 0%, #2563eb 100%);
+    border: 3px solid #93c5fd;
+    border-radius: 16px;
+    cursor: pointer;
+    /* Lueur bleue intense */
+    box-shadow: 0 0 25px rgba(37, 99, 235, 0.6), inset 0 2px 5px rgba(255,255,255,0.4);
+    text-shadow: 0 2px 2px rgba(0,0,0,0.5);
+    transition: all 0.2s;
+  }
+  .claim-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(37, 99, 235, 0.8);
+  }
+
+  /* --- DÉFINITIONS SVG (Cachées) --- */
+  .svg-defs { display: none; }
 </style>
 </head>
 <body>
 
+<svg class="svg-defs">
+  <defs>
+    <symbol id="gift-open" viewBox="0 0 512 512">
+      <path fill="#d32f2f" d="M400 160H112C94 160 80 174 80 192V464C80 481 94 496 112 496H400C417 496 432 481 432 464V192C432 174 417 160 400 160Z"/>
+      <path fill="#f44336" d="M232 160V496H280V160H232Z"/>
+      <path fill="#ffca28" d="M448 112H64C46 112 32 126 32 144V176C32 193 46 208 64 208H448C465 208 480 193 480 176V144C480 126 465 112 448 112Z"/>
+      <path fill="#ffd54f" d="M232 112H280V208H232z"/>
+      <circle cx="256" cy="80" r="30" fill="#ffd700"/>
+      <circle cx="180" cy="100" r="20" fill="#ffd700"/>
+      <circle cx="330" cy="100" r="20" fill="#ffd700"/>
+    </symbol>
+
+    <symbol id="gift-locked" viewBox="0 0 512 512">
+        <g fill="#9e9e9e">
+            <path d="M400 112H112C94 112 80 126 80 144V464C80 481 94 496 112 496H400C417 496 432 481 432 464V144C432 126 417 112 400 112Z"/>
+            <path fill="#bdbdbd" d="M232 112V496H280V112H232Z"/>
+            <path fill="#e0e0e0" d="M400 112H112C94 112 80 126 80 144V176H432V144C432 126 417 112 400 112Z"/>
+        </g>
+        <g transform="translate(150, 150) scale(0.8)">
+             <path fill="#616161" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+        </g>
+    </symbol>
+
+    <symbol id="rocket-svg" viewBox="0 0 24 24">
+        <path fill="#f44336" d="M12,2.5C10.5,2.5 9,3 8,4C6.5,5.5 6,7.5 6,9.5C6,12 7.5,14.5 9,16.5L12,22L15,16.5C16.5,14.5 18,12 18,9.5C18,7.5 17.5,5.5 16,4C15,3 13.5,2.5 12,2.5M12,11.5A2,2 0 0,1 10,9.5A2,2 0 0,1 12,7.5A2,2 0 0,1 14,9.5A2,2 0 0,1 12,11.5Z"/>
+        <path fill="#ffca28" d="M9 16.5L12 22L15 16.5H9Z"/> </symbol>
+    
+    <symbol id="planet-svg" viewBox="0 0 24 24">
+        <circle fill="#42a5f5" cx="12" cy="12" r="10"/>
+        <path fill="#90caf9" d="M16.5,6.5C17.5,7.5 18,8.5 18,10C18,11.5 17,13 15.5,14.5C14,16 12.5,17 11,17C9.5,17 8.5,16.5 7.5,15.5C6.5,14.5 6,13.5 6,12C6,10.5 7,9 8.5,7.5C10,6 11.5,5 13,5C14.5,5 15.5,5.5 16.5,6.5Z" opacity="0.6"/>
+        <ellipse cx="12" cy="12" rx="11" ry="3" fill="none" stroke="#bbdefb" stroke-width="1" transform="rotate(-30 12 12)"/>
+    </symbol>
+  </defs>
+</svg>
+
 <div class="banner-container">
-  <div class="bg-decor planet-bg"></div>
-  <div class="bg-decor star-1">✦</div>
-  <div class="bg-decor star-2">✦</div>
+  <div class="decor star-flash">✦</div>
+  <svg class="decor rocket-1"><use href="#rocket-svg"/></svg>
+  <svg class="decor rocket-2"><use href="#rocket-svg"/></svg>
+  <svg class="decor planet-1"><use href="#planet-svg"/></svg>
+  <svg class="decor planet-2"><use href="#planet-svg" style="fill:#26c6da"/></svg>
 
-  <div class="left-section">
-    <div class="title">Welcome<br><span>Offer</span></div>
-    <div class="claim-badge">CLAIM ></div>
-  </div>
+  <div class="title">WELCOME OFFER</div>
 
-  <div class="scroll-wrapper">
-    <div class="items-list">
-      
-      <div style="position:relative">
-        <div class="card red-reward">
-          <svg viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10" fill="#fbbf24" stroke="#b45309" stroke-width="1.5"/>
-            <path d="M10 8h4v8h-4z" fill="#b45309" opacity="0.3"/> 
-            <path d="M12 6v12" stroke="#b45309" stroke-width="2"/>
-          </svg>
-          <div class="val">x20</div>
-        </div>
-        <div class="day-label">Day 1</div>
+  <div class="days-container">
+    
+    <div class="day-item completed">
+      <div class="reward-box">
+        <span class="top-text">20+</span>
+        <div class="img-container"><svg><use href="#gift-open"/></svg></div>
       </div>
+      <div class="day-label">DAY 1</div>
+    </div>
 
-      <div style="position:relative">
-        <div class="card blue-coin">
-          <svg viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="11" fill="#fbbf24" stroke="#b45309" stroke-width="1"/>
-            <text x="12" y="16" font-family="Arial" font-weight="bold" font-size="12" text-anchor="middle" fill="#b45309">$</text>
-          </svg>
-        </div>
-        <div class="day-label">Day 2</div>
+    <div class="day-item completed">
+      <div class="reward-box">
+        <span class="top-text">20+</span>
+        <div class="img-container"><svg><use href="#gift-open"/></svg></div>
       </div>
+      <div class="day-label">DAY 2</div>
+    </div>
 
-      <div style="position:relative">
-        <div class="card green-check">
-          <div class="circle">
-            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          </div>
-        </div>
-        <div class="day-label">Day 3</div>
+    <div class="day-item completed">
+      <div class="reward-box">
+        <span class="top-text">20+</span>
+        <div class="img-container"><svg><use href="#gift-open"/></svg></div>
       </div>
+      <div class="day-label">DAY 3</div>
+    </div>
 
-      <div style="position:relative">
-        <div class="card grey-lock">
-          <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-        </div>
-        <div class="day-label">Day 4</div>
+    <div class="day-item active">
+      <div class="reward-box">
+        <span class="top-text">20+</span>
+        <div class="img-container" style="transform: scale(1.2);"><svg><use href="#gift-open"/></svg></div>
       </div>
+      <div class="day-label">DAY 4</div>
+      <div class="ready-text">READY TO CLAIM</div>
+    </div>
 
-      <div style="position:relative">
-        <div class="card grey-lock">
-          <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-        </div>
-        <div class="day-label">Day 5</div>
+    <div class="day-item locked">
+      <div class="reward-box">
+        <span class="top-text">20+</span>
+        <div class="img-container"><svg viewBox="0 0 512 512"><use href="#gift-locked"/></svg></div>
       </div>
+      <div class="day-label">DAY 5</div>
+    </div>
 
+    <div class="day-item locked">
+      <div class="reward-box">
+        <span class="top-text">20+</span>
+        <div class="img-container"><svg viewBox="0 0 512 512"><use href="#gift-locked"/></svg></div>
+      </div>
+      <div class="day-label">DAY 6</div>
+    </div>
+
+    <div class="day-item locked">
+      <div class="reward-box">
+        <span class="top-text">20+</span>
+        <div class="img-container"><svg viewBox="0 0 512 512"><use href="#gift-locked"/></svg></div>
+      </div>
+      <div class="day-label">DAY 7</div>
     </div>
   </div>
+
+  <button class="claim-btn">CLAIM NOW</button>
+
 </div>
 
 </body>
