@@ -3,19 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Banner Welcome Offer Responsive</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+<title>Banner Welcome Offer - Custom DA</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,900&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg-dark: #0a0a2a;
-    --bg-light: #1a1a4a;
-    --text-gold: #ffd700;
-    --text-white: #ffffff;
-    --color-green: #28a745;
-    --color-green-dark: #1e7e34;
-    --color-yellow: #ffc107;
-    --color-yellow-dark: #d39e00;
-    --color-grey: #495057;
+    --bg-deep: #0B1120;
+    --bg-blue: #14223E;
+    --card-bg: #2B3855;
+    --red-gradient: linear-gradient(135deg, #FF5F6D 0%, #FFC371 100%); /* Fallback */
+    --red-glossy: radial-gradient(circle at top left, #ef4444, #991b1b);
+    --gold: #FFD700;
+    --green: #22c55e;
+    --stroke-width: 1.5px;
   }
 
   body {
@@ -29,216 +28,108 @@
     font-family: 'Montserrat', sans-serif;
   }
 
-  /* --- CONTENEUR RESPONSIVE --- */
+  /* --- CONTENEUR PRINCIPAL --- */
   .banner-container {
     position: relative;
-    width: 100%;      /* Prend toute la largeur disponible */
-    max-width: 600px; /* Limite la largeur sur les grands écrans */
-    min-height: 80px; /* Hauteur minimale pour garder le style */
-    background: radial-gradient(circle at left, var(--bg-light) 0%, var(--bg-dark) 100%);
-    border-radius: 12px;
+    width: 100%;
+    max-width: 600px;
+    height: 100px; /* Hauteur ajustée pour bien voir les items */
+    /* Fond Bleu Nuit avec dégradé subtil */
+    background: radial-gradient(circle at 20% 50%, #1e3a8a 0%, #0f172a 100%);
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    display: flex; /* Layout Horizontal */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.1);
+    display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px; /* Padding un peu plus généreux */
+    padding: 0 15px;
     box-sizing: border-box;
-    border: 1px solid rgba(255,255,255,0.1);
-    margin: auto; /* Centre la bannière */
+    border: 1px solid rgba(255,255,255,0.05);
   }
 
-  /* Décoration de fond */
-  .bg-decor { position: absolute; pointer-events: none; opacity: 0.5; }
-  
-  /* --- SECTION GAUCHE : TITRE --- */
+  /* Formes géométriques en arrière-plan (DA Space) */
+  .bg-shape {
+    position: absolute;
+    background: rgba(255,255,255,0.03);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .shape-1 { width: 100px; height: 100px; transform: rotate(45deg); top: -50px; left: 10%; }
+  .shape-2 { width: 150px; height: 150px; transform: rotate(20deg); bottom: -80px; right: 20%; background: rgba(34, 211, 238, 0.05); }
+
+  /* --- PARTIE GAUCHE : TITRE --- */
   .left-section {
-    flex: 0 0 auto; /* Ne grandit pas, ne rétrécit pas */
+    flex: 0 0 auto;
+    z-index: 2;
+    padding-right: 15px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    z-index: 2;
-    padding-right: 15px;
-    border-right: 1px solid rgba(255,255,255,0.1);
   }
 
   .title {
-    font-size: 16px; /* Un peu plus grand */
-    line-height: 1.1;
+    font-family: 'Montserrat', sans-serif;
+    font-style: italic;
     font-weight: 900;
-    text-transform: uppercase;
-    background: linear-gradient(to right, #ffffff, #ffd700);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 6px;
+    font-size: 26px; /* Ajusté pour mobile */
+    line-height: 0.9;
+    color: white;
+    text-transform: capitalize; /* Ou uppercase selon pref */
+    
+    /* LE STYLE CONTOUR NOIR ÉPAIS (Stroke) */
+    -webkit-text-stroke: 1.5px black;
+    text-shadow: 3px 3px 0px #000000;
+    transform: rotate(-2deg); /* Petite rotation dynamique */
+  }
+  .title span {
+    display: block;
+    font-size: 0.8em; /* "Offer" un peu plus petit si sur 2 lignes */
   }
 
-  .claim-badge {
-    background: var(--color-yellow);
-    color: #000;
-    font-size: 10px;
-    padding: 3px 10px;
-    border-radius: 12px;
-    font-weight: 800;
-    display: inline-block;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
-    cursor: pointer;
-    align-self: flex-start; /* Aligné à gauche */
-  }
-
-  /* --- SECTION DROITE : LISTE DÉFILANTE --- */
+  /* --- PARTIE DROITE : SCROLL --- */
   .scroll-container {
-    flex: 1; /* Prend le reste de la place */
+    flex: 1;
     height: 100%;
+    z-index: 2;
     display: flex;
     align-items: center;
-    overflow-x: auto; /* Permet le scroll horizontal */
-    overflow-y: hidden;
-    /* Cache la scrollbar */
-    scrollbar-width: none; 
-    -ms-overflow-style: none;
-    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
-    padding-left: 10px; /* Espace avant le premier élément */
+    overflow-x: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE */
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    padding-left: 10px;
   }
   .scroll-container::-webkit-scrollbar { display: none; }
 
-  .days-track {
+  .items-track {
     display: flex;
-    gap: 8px; /* Espace un peu plus grand entre les jours */
-    padding-right: 10px; /* Espace après le dernier élément pour le scroll */
-  }
-
-  /* --- ITEMS JOURS --- */
-  .day-item {
-    min-width: 50px; /* Un peu plus large */
-    height: 65px;  /* Un peu plus haut */
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
+    gap: 10px;
+    padding-right: 10px;
     align-items: center;
-    justify-content: space-between;
-    position: relative;
-    background: #2a2a40;
-    border: 1px solid #4a4a60;
-    padding: 3px 0;
-    flex-shrink: 0; /* Empêche les éléments de s'écraser */
   }
 
-  /* Header du jour (20+) */
-  .day-val {
-    font-size: 11px;
-    font-weight: 900;
-    color: white;
-    z-index: 2;
-    text-shadow: 0 1px 2px black;
-  }
-
-  /* Icone Cadeau */
-  .icon-box {
-    width: 28px;
-    height: 28px;
-    margin-top: -2px;
+  /* --- ITEM GÉNÉRIQUE (CARRÉ ARRONDIS) --- */
+  .item-card {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  .icon-box svg { width: 100%; height: 100%; }
-  
-  /* Footer du jour (Day X) */
-  .day-label {
-    font-size: 8px;
-    color: #aaa;
-    text-transform: uppercase;
-    background: rgba(0,0,0,0.3);
-    width: 100%;
-    text-align: center;
-    border-radius: 0 0 7px 7px;
-    padding: 3px 0;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
   }
 
-  /* --- ETATS --- */
-  /* Validé */
-  .day-item.completed {
-    background: linear-gradient(180deg, var(--color-green), var(--color-green-dark));
-    border-color: #86efac;
+  /* --- STYLE 1 : RED REWARD (Cadeau x20) --- */
+  .item-card.reward-red {
+    background: var(--red-glossy);
+    border: 1px solid rgba(255,255,255,0.3);
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+    flex-direction: column;
+    /* Effet "Sunburst" simulé */
+    background-image: repeating-conic-gradient(rgba(255,255,255,0.1) 0 15deg, transparent 15deg 30deg);
   }
-  
-  /* Actif (Highlight) */
-  .day-item.active {
-    min-width: 55px; /* Un peu plus large */
-    height: 70px; /* Un peu plus grand */
-    background: linear-gradient(180deg, var(--color-yellow), var(--color-yellow-dark));
-    border: 1px solid white;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-    z-index: 10;
-    margin-top: -2.5px; /* Pour centrer verticalement l'élément plus grand */
-  }
-  .day-item.active .day-val { color: #5c3a00; }
-  .day-item.active .day-label { color: #5c3a00; background: rgba(255,255,255,0.3); }
-
-  /* Verrouillé */
-  .day-item.locked { opacity: 0.6; }
-
-</style>
-</head>
-<body>
-
-<div class="banner-container">
-  <div class="bg-decor" style="top: 5px; left: 10px; font-size: 12px;">✨</div>
-  <div class="bg-decor" style="bottom: 5px; right: 20px; font-size: 10px;">🌍</div>
-
-  <div class="left-section">
-    <div class="title">WELCOME<br>OFFER</div>
-    <div class="claim-badge">CLAIM &rsaquo;</div>
-  </div>
-
-  <div class="scroll-container">
-    <div class="days-track">
-      
-      <div class="day-item completed">
-        <div class="day-val">20+</div>
-        <div class="icon-box"><svg viewBox="0 0 512 512"><path fill="#fff" d="M400 112H112C94 112 80 126 80 144V464C80 481 94 496 112 496H400C417 496 432 481 432 464V144C432 126 417 112 400 112Z"/><path fill="#ef5350" d="M232 112V496H280V112H232Z"/><path fill="#ffca28" d="M400 112H112C94 112 80 126 80 144V176H432V144C432 126 417 112 400 112Z"/></svg></div>
-        <div class="day-label">Day 1</div>
-      </div>
-      <div class="day-item completed">
-        <div class="day-val">20+</div>
-        <div class="icon-box"><svg viewBox="0 0 512 512"><path fill="#fff" d="M400 112H112C94 112 80 126 80 144V464C80 481 94 496 112 496H400C417 496 432 481 432 464V144C432 126 417 112 400 112Z"/><path fill="#ef5350" d="M232 112V496H280V112H232Z"/><path fill="#ffca28" d="M400 112H112C94 112 80 126 80 144V176H432V144C432 126 417 112 400 112Z"/></svg></div>
-        <div class="day-label">Day 2</div>
-      </div>
-       <div class="day-item completed">
-        <div class="day-val">20+</div>
-        <div class="icon-box"><svg viewBox="0 0 512 512"><path fill="#fff" d="M400 112H112C94 112 80 126 80 144V464C80 481 94 496 112 496H400C417 496 432 481 432 464V144C432 126 417 112 400 112Z"/><path fill="#ef5350" d="M232 112V496H280V112H232Z"/><path fill="#ffca28" d="M400 112H112C94 112 80 126 80 144V176H432V144C432 126 417 112 400 112Z"/></svg></div>
-        <div class="day-label">Day 3</div>
-      </div>
-
-      <div class="day-item active">
-        <div class="day-val">20+</div>
-        <div class="icon-box" style="transform: scale(1.1);"><svg viewBox="0 0 512 512"><path fill="#fff" d="M400 160H112C94 160 80 174 80 192V464C80 481 94 496 112 496H400C417 496 432 481 432 464V192C432 174 417 160 400 160Z"/><path fill="#ef5350" d="M232 160V496H280V160H232Z"/><path fill="#ffca28" d="M448 112H64C46 112 32 126 32 144V176C32 193 46 208 64 208H448C465 208 480 193 480 176V144C480 126 465 112 448 112Z"/></svg></div>
-        <div class="day-label">Day 4</div>
-      </div>
-
-      <div class="day-item locked">
-        <div class="day-val">20+</div>
-        <div class="icon-box"><svg viewBox="0 0 24 24" fill="#aaa"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div>
-        <div class="day-label">Day 5</div>
-      </div>
-      <div class="day-item locked">
-        <div class="day-val">20+</div>
-        <div class="icon-box"><svg viewBox="0 0 24 24" fill="#aaa"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div>
-        <div class="day-label">Day 6</div>
-      </div>
-       <div class="day-item locked">
-        <div class="day-val">20+</div>
-        <div class="icon-box"><svg viewBox="0 0 24 24" fill="#aaa"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div>
-        <div class="day-label">Day 7</div>
-      </div>
-
-    </div>
-  </div>
-
-</div>
-
-</body>
-</html>
+  .item-
