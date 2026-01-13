@@ -3,27 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Space Casino - Day 1 Claim</title>
+<title>Space Casino - Final BG & Rocket</title>
 <link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
 <style>
   :root {
-    /* Palette */
+    /* Palette du nouveau fond */
     --bg-dark: #090e24;
+    
+    /* Verts */
     --green-light: #4ade80; --green-main: #22c55e; --green-shadow: #14532d;
+    /* Ors */
     --gold-light: #fef08a; --gold-main: #fbbf24; --gold-shadow: #b45309;
+    /* Gris */
     --grey-light: #d1d5db; --grey-main: #6b7280; --grey-shadow: #374151;
+    /* Bleu Bouton */
     --btn-blue-top: #3b82f6; --btn-blue-bot: #1d4ed8;
   }
 
   body {
     margin: 0;
     padding: 20px;
-    background-color: #000;
+    /* NOUVEAU BACKGROUND */
+    background: url('https://i.imgur.com/8Q0g0aN.jpg') no-repeat center center fixed;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     font-family: 'Montserrat', sans-serif;
+    position: relative; /* Pour la fusée */
+  }
+
+  /* --- FUSÉE SUR LE CÔTÉ --- */
+  .side-rocket {
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%) rotate(-15deg);
+    width: 180px;
+    z-index: 100;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
   }
 
   /* --- LE CADRE PRINCIPAL --- */
@@ -31,11 +50,13 @@
     position: relative;
     width: 900px;
     height: 380px;
-    background: radial-gradient(circle at 50% 40%, #172554 0%, #020617 90%);
+    /* Fond semi-transparent pour voir le BG derrière */
+    background: rgba(2, 6, 23, 0.7);
+    backdrop-filter: blur(5px); /* Effet de flou derrière */
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 0 60px rgba(0,0,0,0.9);
-    border: 1px solid #1e3a8a;
+    border: 1px solid rgba(30, 58, 138, 0.5);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -204,22 +225,6 @@
   .gift-icon { width: 85px; height: 85px; z-index: 2; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.4)); }
   .lock-icon { width: 60px; height: 60px; z-index: 3; fill: #d1d5db; filter: drop-shadow(0 3px 3px rgba(0,0,0,0.6)); }
 
-  /* --- DECOR --- */
-  .decor { position: absolute; pointer-events: none; }
-  .planet-blue { bottom: -30px; left: -30px; width: 100px; opacity: 0.9; }
-  .planet-saturn { top: -20px; right: -20px; width: 130px; opacity: 0.9; }
-  .rocket-left { top: 70px; left: 30px; width: 50px; transform: rotate(45deg); }
-  .rocket-right { top: 70px; right: 50px; width: 45px; transform: rotate(-45deg); }
-  .stars {
-    width: 100%; height: 100%; position: absolute;
-    background-image: 
-        radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
-        radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px);
-    background-size: 550px 550px, 350px 350px;
-    background-position: 0 0, 40px 60px;
-    opacity: 0.6;
-  }
-
   /* --- BOUTON --- */
   .btn-claim {
     position: absolute;
@@ -256,7 +261,6 @@
         <circle cx="55" cy="22" r="6" fill="#fbbf24" stroke="#b45309" stroke-width="1"/>
       </g>
     </symbol>
-
     <symbol id="gift-open" viewBox="0 0 100 100">
        <g transform="translate(10, 10)">
          <path d="M5 35 L40 45 L75 35 L40 25 Z" fill="#7f1d1d"/>
@@ -273,36 +277,18 @@
          <circle cx="60" cy="5" r="8" fill="#fbbf24" stroke="#b45309" stroke-width="1"/>
        </g>
     </symbol>
-
     <symbol id="lock" viewBox="0 0 24 24">
        <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
-    </symbol>
-
-    <symbol id="rocket" viewBox="0 0 24 24">
-       <path fill="#e2e8f0" d="M12,2.5C10.5,2.5 9,3 8,4C6.5,5.5 6,7.5 6,9.5C6,12 7.5,14.5 9,16.5L12,22L15,16.5C16.5,14.5 18,12 18,9.5C18,7.5 17.5,5.5 16,4C15,3 13.5,2.5 12,2.5Z"/>
-       <path fill="#ef4444" d="M12 2.5 C12 2.5 14 5 15 9.5 L9 9.5 C10 5 12 2.5 12 2.5 Z"/>
-       <path fill="#f59e0b" d="M9 16.5 L12 22 L15 16.5 Z"/>
-    </symbol>
-
-    <symbol id="planet" viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="45" fill="#3b82f6"/>
-        <path d="M10 50 Q50 90 90 50" fill="none" stroke="#60a5fa" stroke-width="5"/>
-        <path d="M15 60 Q50 95 85 60" fill="none" stroke="#2563eb" stroke-width="3" opacity="0.5"/>
     </symbol>
   </defs>
 </svg>
 
-<div class="banner">
-  <div class="stars"></div>
-  <svg class="decor planet-blue"><use href="#planet"/></svg>
-  <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0iI2Q5NzcwNiIvPjxwYXRoIGQ9Ik0xMCA2MCBDMzAgODAgNzAgODAgOTAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZkZTA0NyIHN0cm9rZS13aWR0aD0iNSIvPjwvc3ZnPg==" class="decor planet-saturn">
-  <svg class="decor rocket-left"><use href="#rocket"/></svg>
-  <svg class="decor rocket-right"><use href="#rocket"/></svg>
+<img src="https://i.imgur.com/6b7e7H6.png" class="side-rocket" alt="Rocket">
 
+<div class="banner">
   <h1 class="title">WELCOME OFFER</h1>
 
   <div class="days-container">
-    
     <div class="day-col gold">
       <div class="reward-box">
         <div class="burst-light"></div>
@@ -312,7 +298,6 @@
       <div class="day-label">DAY 1</div>
       <div class="ready-text">READY TO CLAIM</div>
     </div>
-
     <div class="day-col grey">
       <div class="reward-box">
         <span class="amount-tag">20+</span>
@@ -321,7 +306,6 @@
       </div>
       <div class="day-label">DAY 2</div>
     </div>
-
     <div class="day-col grey">
       <div class="reward-box">
         <span class="amount-tag">20+</span>
@@ -330,7 +314,6 @@
       </div>
       <div class="day-label">DAY 3</div>
     </div>
-
     <div class="day-col grey">
       <div class="reward-box">
         <span class="amount-tag">20+</span>
@@ -339,7 +322,6 @@
       </div>
       <div class="day-label">DAY 4</div>
     </div>
-
     <div class="day-col grey">
       <div class="reward-box">
         <span class="amount-tag">20+</span>
@@ -348,7 +330,6 @@
       </div>
       <div class="day-label">DAY 5</div>
     </div>
-
     <div class="day-col grey">
       <div class="reward-box">
         <span class="amount-tag">20+</span>
@@ -357,7 +338,6 @@
       </div>
       <div class="day-label">DAY 6</div>
     </div>
-
     <div class="day-col grey">
       <div class="reward-box">
         <span class="amount-tag">20+</span>
@@ -366,7 +346,6 @@
       </div>
       <div class="day-label">DAY 7</div>
     </div>
-
   </div>
 
   <button class="btn-claim">CLAIM NOW</button>
